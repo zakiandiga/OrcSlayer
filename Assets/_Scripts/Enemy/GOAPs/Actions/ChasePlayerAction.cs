@@ -9,6 +9,8 @@ public class ChasePlayerAction : BasicAction
     private Vector3 targetDestination;
     private float hitRange; //same as navDistanceTolerance
 
+    private string spinAttackReadyTimer = "SpinAttackReadying";
+
     void Start()
     {
         enemy = GetComponentInParent<EnemyBehaviour>();
@@ -52,6 +54,7 @@ public class ChasePlayerAction : BasicAction
     public override bool PostPerform()
     {
         enemy.AnimManager.SetRunningBool(false);
+
         return base.PostPerform();
     }
 }

@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   agentName: Enemy-Orc
   normalAttack01: Attack01
-  normalAttack02: 
+  normalAttack02: Attack01
   normalAttack03: 
   normalSlideAttack: 
   normalAirAttack: 
+  specialAttack01: Attack02
   roll: 
   jumpTrigger: 
   landTrigger: 

@@ -1,12 +1,11 @@
 using UnityEngine;
 using SGoap;
 
-public class HitPlayerAction : BasicAction
+public class SpinAttack : BasicAction
 {
     private EnemyBehaviour enemy;
 
     private bool hitOngoing = false;
-    private int delayTime = 0;
 
     private WeaponAnimationEvents weaponAnimation;
 
@@ -18,16 +17,12 @@ public class HitPlayerAction : BasicAction
 
     public override EActionStatus Perform()
     {
-        if (hitOngoing)
+        if(hitOngoing)
         {
-            if (delayTime <= 0)
-                hitOngoing = false;
-
             return EActionStatus.Running;
         }
-        
         else
-            return EActionStatus.Success;
+            return EActionStatus.Success;        
     }
 
     public override bool PostPerform()
@@ -36,26 +31,16 @@ public class HitPlayerAction : BasicAction
     }
 
     public override bool PrePerform()
-    {        
+    {
         hitOngoing = true;
-        enemy.AnimManager.SetAttack(1); //MAGIC NUMBER
+        enemy.AnimManager.SetAttack(5); //look at the EnemyAnimationManager for the value, refactor this system later
         weaponAnimation.OnAttackDone += HitDone;
         return base.PrePerform();
     }
 
     private void HitDone(bool isDone)
     {
-        if(isDone)
-        {
-            weaponAnimation.OnAttackDone -= HitDone;
-            delayTime = Random.Range(4, 10);         
-        }
-    }
-
-
-    private void Update()
-    {
-        if(delayTime > 0)
-            delayTime -= 1; //frame   
+        weaponAnimation.OnAttackDone -= HitDone;
+        hitOngoing = false;
     }
 }
