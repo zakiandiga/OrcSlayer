@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baaa922b59bd331408b67f969b82d053, type: 3}
+  m_Name: PlayerData01
+  m_EditorClassIdentifier: 
+  groundSpeed: 15
+  accelTime: 15
+  deccelTime: 17
+  driftingStrong: 19.9
+  driftingWeak: 8.9
+  driftingTreshold: 1
+  airSpeed: 13.5
+  airAccelTime: 8.7
+  jumpHeight: 16.1
+  jumpConst: -1
+  gravityValue: -98.5
+  airAttackGravityMod: 0
+  maxJumpCount: 1
+  recoveryDelay: 0.5
+  instantTurn: 200
+  quickTurn: 75
+  slowTurn: 43.7
+  maxComboCount: 3
+  attackDelay: 0.34
+  comboGap: 0.8

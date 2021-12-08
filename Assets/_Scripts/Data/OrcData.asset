@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad19ee2e1768e1b43b52c3466f73b248, type: 3}
+  m_Name: OrcData
+  m_EditorClassIdentifier: 
+  enemyName: Orc
+  enemyType: 0
+  maxHP: 10
+  maxStamina: 10
+  maxWanderRange: 8
+  minWanderRange: 5
+  wanderSpeed: 3
+  aggroSpeed: 8
+  wanderAlertColliderRadius: 5
+  aggroAlertColliderRadius: 7
+  restAlertColliderRadius: 3
+  unaggroDelay: 3.5

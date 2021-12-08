@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52bc7f6278a918b4c9dbc3c9c95d4f03, type: 3}
+  m_Name: PlayerAnimationHolder
+  m_EditorClassIdentifier: 
+  agentName: Player
+  normalAttack01: Sword Atk 01
+  normalAttack02: Sword Atk 02
+  normalAttack03: Sword Atk 03
+  normalSlideAttack: Slide Atk
+  normalAirAttack: Jump Atk
+  roll: 
+  jumpTrigger: Jump
+  landTrigger: Land
+  fallFloat: falling
+  runningFloat: running
+  runningBool: isRunning
+  driftTrigger: turn
