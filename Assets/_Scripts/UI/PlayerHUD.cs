@@ -10,6 +10,7 @@ public class PlayerHUD : MonoBehaviour
 
     [SerializeField] private Image healthBar;
 
+
     private Player bindedPlayer;
 
     #region Calculation Variables
@@ -24,13 +25,10 @@ public class PlayerHUD : MonoBehaviour
     private void Start()
     {
         OnPlayerUIActive?.Invoke(this);
-    }
-
-    
+    }    
 
     private void OnEnable()
-    {
-        
+    {        
         Player.OnInitializePlayerUI += AssignPlayer;
         Player.OnPlayerTakesDamage += ReduceHealth;
     }
@@ -55,7 +53,7 @@ public class PlayerHUD : MonoBehaviour
         healthBar.fillAmount = (float) _playerCurrentHP / _playerMaxHP;
     }
 
-    private void ReduceHealth(int damage)
+    public void ReduceHealth(int damage)
     {
 
         _playerCurrentHP -= damage;
@@ -100,4 +98,5 @@ public class HealthPoint
     {
         return currentHealth / MaxHealthDisplay;
     }
+
 }

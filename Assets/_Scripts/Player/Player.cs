@@ -66,9 +66,11 @@ public class Player : MonoBehaviour, IDamageHandler
     //DEBUG VARIABLES
     private float debugVelocity;
 
+    #region Events
     public static event Action<Player> OnInitializePlayerUI;
     public static event Action<int> OnPlayerTakesDamage;
     public static event Action<GameObject> OnPlayerDies;
+    #endregion
 
     #region Initialization
     private void Awake()
