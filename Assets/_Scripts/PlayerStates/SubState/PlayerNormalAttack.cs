@@ -77,15 +77,15 @@ public class PlayerNormalAttack : ActionState
         switch (currentComboCount)
         {
             case 1:
-                player.Anim.Play(playerAnimation.normalAttack01);
+                player.Anim.Play(playerAnimation.normalAttack01, -1, 0f);
                 break;
 
             case 2:
-                player.Anim.Play(playerAnimation.normalAttack02);
+                player.Anim.Play(playerAnimation.normalAttack02, -1, 0f);
                 break;
 
             case 3:
-                player.Anim.Play(playerAnimation.normalAttack03);
+                player.Anim.Play(playerAnimation.normalAttack03, -1, 0f);
                 break;
         }
     }

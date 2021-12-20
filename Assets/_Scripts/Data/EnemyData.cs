@@ -9,6 +9,7 @@ public class EnemyData : ScriptableObject
     [Header("Enemy Stats")]
     public int maxHP = 10;
     public int maxStamina = 10;
+    public int staminaRegenerationRate = 2;
 
     [Header("Movement Property")]
     public float maxWanderRange = 8;

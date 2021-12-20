@@ -34,4 +34,7 @@ public class EnemyAnimationHolder : AnimationHolder
 
     [Header("Idle")]
     public string isAggro;
+
+    [Tooltip("string of taunting animation STATE name")]
+    public string taunt;
 }

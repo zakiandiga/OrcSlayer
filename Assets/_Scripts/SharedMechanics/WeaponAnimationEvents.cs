@@ -8,7 +8,7 @@ public class WeaponAnimationEvents : MonoBehaviour
 
     private WeaponCollider weaponCollider;
 
-    public event Action<bool> OnAttackDone;
+    public event Action<bool> OnAttackExecuting;
 
     private void Start()
     {
@@ -19,6 +19,7 @@ public class WeaponAnimationEvents : MonoBehaviour
     public void SetColliderOn()
     {
         weaponCollider.DamageCollider.enabled = true;
+        //OnAttackExecuting?.Invoke(true);
     }
 
     public void SetColliderOff()
@@ -26,16 +27,6 @@ public class WeaponAnimationEvents : MonoBehaviour
         weaponCollider.DamageCollider.enabled = false;
         weaponCollider.DamageClear();
 
-        OnAttackDone?.Invoke(true);
-    }
-
-    public void SetPhyOverlapOn()
-    {
-        weaponComp.AttackOn();
-    }
-
-    public void SetPhyOverLapOff()
-    {
-        weaponComp.AttackOff();
+        OnAttackExecuting?.Invoke(false);
     }
 }

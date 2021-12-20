@@ -36,18 +36,23 @@ public class EnemyAnimationManager : AnimationManager
         anim.SetBool(animList.isAggro, isAggro);
     }
 
+    public void SetTaunt()
+    {
+        anim.Play(animList.taunt, -1, 0f);
+    }
+
     public void SetAttack(int comboCount)
     {
         switch (comboCount)
         {
             case 1:
-                anim.Play(animList.normalAttack01);
+                anim.Play(animList.normalAttack01, -1, 0f);
                 break;
             case 2:
                 anim.Play(animList.normalAttack02);
                 break;
             case 5:
-                anim.Play(animList.specialAttack01);
+                anim.Play(animList.specialAttack01, -1, 0f);
                 break;
         }
     }

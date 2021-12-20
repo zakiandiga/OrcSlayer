@@ -1,32 +1,25 @@
 using UnityEngine;
 using SGoap;
 
-public class ChasePlayerAction : BasicAction
+public class ChasePlayerAction : EnemyAction
 {    
-    private EnemyBehaviour enemy;
-
     private float targetPositionX;
     private Vector3 targetDestination;
-    private float hitRange; //same as navDistanceTolerance
+    private float destinationTreshold; //same as navDistanceTolerance
 
-    private string spinAttackReadyTimer = "SpinAttackReadying";
-
-    void Start()
-    {
-        enemy = GetComponentInParent<EnemyBehaviour>();
-    }
+    [SerializeField] private StringReference isInCombat;
 
     public override bool PrePerform()
     {
         enemy.SetAlertColliderRadius(enemy.AggroAlertColliderRadius);
         targetPositionX = enemy.Player.position.x;
         targetDestination = new Vector3(enemy.Player.position.x, enemy.EnemyPosition.y, enemy.EnemyPosition.z);
-        hitRange = Random.Range(2f, 2.5f);
+        destinationTreshold = Random.Range(actionData.minDestinationTreshold, actionData.maxDestinationTreshold);
 
         enemy.SetDestination(targetDestination, enemy.AggroSpeed);
 
         enemy.AnimManager.SetRunningBool(true);
-        enemy.AnimManager.SetRunningFloat(1);
+        //enemy.AnimManager.SetRunningFloat(1);
 
         return base.PrePerform();
     }
@@ -40,20 +33,28 @@ public class ChasePlayerAction : BasicAction
             return EActionStatus.Failed;
         }
 
-        if(enemy.NavRemainingDistance() <= hitRange || enemy.AgentPath.status != UnityEngine.AI.NavMeshPathStatus.PathComplete)
+        if(enemy.NavRemainingDistance() <= destinationTreshold || enemy.AgentPath.status != UnityEngine.AI.NavMeshPathStatus.PathComplete)
         {
-            //Debug.Log("if player is still at the hitting range at this point, ATTACK, else, chase again!");
             enemy.SetStopNavMesh();
             return EActionStatus.Success;
         }
 
         else
+        {
+            enemy.AnimManager.SetRunningFloat(enemy.NavVelocity());
             return EActionStatus.Running;
+        }
     }
 
     public override bool PostPerform()
     {
         enemy.AnimManager.SetRunningBool(false);
+
+        if (!States.HasState(isInCombat.Value))
+            States.AddState(isInCombat.Value, 1);
+
+        else
+            States.SetState(isInCombat.Value, 1);
 
         return base.PostPerform();
     }

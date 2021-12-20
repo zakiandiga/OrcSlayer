@@ -16,6 +16,7 @@ MonoBehaviour:
   enemyType: 0
   maxHP: 10
   maxStamina: 10
+  staminaRegenerationRate: 1
   maxWanderRange: 8
   minWanderRange: 5
   wanderSpeed: 3
