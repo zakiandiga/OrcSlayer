@@ -8,16 +8,9 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - 
   - Water
   - UI
-  - Ground
-  - AlertTrigger
-  - 
-  - Hitable
-  - Enemy
-  - Attack
-  - CameraCollider
   - 
   - 
   - 
@@ -25,7 +18,14 @@ TagManager:
   - 
   - 
   - 
-  - AdditiveLights
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
