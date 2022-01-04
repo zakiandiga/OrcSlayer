@@ -13,9 +13,7 @@ public class PlayerFall : AirState
     private string coyoteJumpTimer = "CoyoteJumpTimer";
     private float coyoteTime = 0.3f;
     private bool canCoyote = false;
-
     private float jumpTolerance = 0.3f;
-    private float jumpToleranceTimer;
 
     private bool jumpCountAdded = false;
 
@@ -23,8 +21,7 @@ public class PlayerFall : AirState
     {
         base.Enter();
 
-        jumpCountAdded = false;
-        jumpToleranceTimer = jumpTolerance;           
+        jumpCountAdded = false;         
     }
 
     public override void Exit()
@@ -50,20 +47,6 @@ public class PlayerFall : AirState
         //Coyote effect
         if(stateMachine.LastState != player.JumpState && stateMachine.LastState != player.LandState)
         {
-            /*
-            jumpToleranceTimer -= Time.deltaTime;
-            if (jumpToleranceTimer >= 0 && player.JumpCount < playerData.maxJumpCount && isJumping)
-            {
-                jumpToleranceTimer = 0;
-                player.InputHandler.JumpStop();
-                stateMachine.ChangeState(player.JumpState);
-            }
-            else if (jumpToleranceTimer < 0 && !jumpCountAdded && !isJumping)
-            {
-                player.AddJumpCount(1);
-                jumpCountAdded = true;
-            }
-            */
             if(!Timer.TimerRunning(coyoteJumpTimer))
             {
                 Timer.Create(CoyoteSwitch, coyoteTime, coyoteJumpTimer);
@@ -71,25 +54,14 @@ public class PlayerFall : AirState
             }
 
             if(onJumpPressedTolerance && canCoyote && player.JumpCount < playerData.maxJumpCount)
-            {
-                Debug.Log("Coyote Effect Executed");
                 stateMachine.ChangeState(player.JumpState);
-            }
+            
             else if (!onJumpPressedTolerance && !canCoyote && !jumpCountAdded)
             {
                 player.AddJumpCount(1);
                 jumpCountAdded = true;
-
             }
         }
-        
-        /*
-        if (player.JumpCount < playerData.maxJumpCount && isJumping)
-        {
-            player.InputHandler.JumpStop();
-            stateMachine.ChangeState(player.JumpState);
-        }
-        */
 
         if (normalAttackInput)
         {
@@ -97,8 +69,7 @@ public class PlayerFall : AirState
         }
 
         if (player.IsGrounded)
-        {
-            
+        {            
             stateMachine.ChangeState(player.LandState);
         }
     }
