@@ -2845,6 +2845,20 @@ MonoBehaviour:
   _slideGravityMultiplier: 2
   _snapToGround: 1
   _snapStrength: 0.5
+  _normal: {x: 0, y: 0, z: 0}
+  _referenceCastDistance: 0
+  _forceUnground: 0
+  _forceUngroundTimer: 0
+  _performGroundDetection: 1
+  _savedVelocity: {x: 0, y: 0, z: 0}
+  _savedAngularVelocity: {x: 0, y: 0, z: 0}
+  <groundDetection>k__BackingField: {fileID: 0}
+  <isOnPlatform>k__BackingField: 0
+  <isSliding>k__BackingField: 0
+  <platformVelocity>k__BackingField: {x: 0, y: 0, z: 0}
+  <platformAngularVelocity>k__BackingField: {x: 0, y: 0, z: 0}
+  <platformUpdatesRotation>k__BackingField: 0
+  <cachedRigidbody>k__BackingField: {fileID: 0}
 --- !u!114 &246212641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2858,13 +2872,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _groundMask:
-    serializedVersion: 2
     m_Bits: 64
   _groundLimit: 60
   _stepOffset: 0.5
   _ledgeOffset: 0
   _castDistance: 0.1
   _triggerInteraction: 1
+  _capsuleCollider: {fileID: 246212642}
+  _overlapMask:
+    m_Bits: 4294967295
+  _ignoreRaycastLayer: 2
+  _cachedLayer: 0
 --- !u!136 &246212642
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2942,6 +2960,24 @@ MonoBehaviour:
   _maxMidAirJumps: 1
   _useRootMotion: 0
   _rootMotionRotation: 0
+  _moveDirection: {x: 0, y: 0, z: 0}
+  _canJump: 1
+  _jump: 0
+  _isJumping: 0
+  _updateJumpTimer: 0
+  _jumpTimer: 0
+  _jumpButtonHeldDownTimer: 0
+  _jumpUngroundedTimer: 0
+  _midAirJumpCount: 0
+  _allowVerticalMovement: 0
+  _restoreVelocityOnResume: 1
+  <movement>k__BackingField: {fileID: 0}
+  <animator>k__BackingField: {fileID: 0}
+  <rootMotionController>k__BackingField: {fileID: 0}
+  <pause>k__BackingField: 0
+  <isPaused>k__BackingField: 0
+  <crouch>k__BackingField: 0
+  <isCrouching>k__BackingField: 0
   input: {fileID: 246212639}
 --- !u!1 &250893363
 GameObject:
@@ -21452,13 +21488,13 @@ MonoBehaviour:
   UsableEvaluator: {fileID: 0}
   AbortEvaluator: {fileID: 0}
   PreConditions:
-  - KeyReference: {fileID: 11400000, guid: eeb9296b55002bb4dad7892b575ca73b, type: 2}
+  - KeyReference: {fileID: 0}
     Concatenator: {fileID: 0}
     StateType: 0
     Value: 0
     StringValue: ActionEvaluated
     Operator: 0
-  - KeyReference: {fileID: 11400000, guid: fac918a8ea39ca74e99b404f2419af48, type: 2}
+  - KeyReference: {fileID: 0}
     Concatenator: {fileID: 0}
     StateType: 0
     Value: 0
@@ -21474,7 +21510,7 @@ MonoBehaviour:
   CostEvaluationType: 0
   AchievableEvaluationType: 0
   AbortEvaluatorType: 0
-  actionData: {fileID: 11400000, guid: d3a6e03909f21c94689ca350e18f0490, type: 2}
+  actionData: {fileID: 0}
 --- !u!1 &2038654514
 GameObject:
   m_ObjectHideFlags: 0
