@@ -25,23 +25,24 @@ public class PlayerHUD : MonoBehaviour
     private void Start()
     {
         OnPlayerUIActive?.Invoke(this);
-    }    
+    }
 
     private void OnEnable()
     {        
         Player.OnInitializePlayerUI += AssignPlayer;
-        Player.OnPlayerTakesDamage += ReduceHealth;
+        
     }
 
     private void OnDisable()
     {
         Player.OnInitializePlayerUI -= AssignPlayer;
-        Player.OnPlayerTakesDamage -= ReduceHealth;
+        bindedPlayer.OnPlayerTakesDamage -= ReduceHealth;
     }
 
     private void AssignPlayer(Player player)
     {
         bindedPlayer = player;
+        bindedPlayer.OnPlayerTakesDamage += ReduceHealth; //Subs to player take damage
         InitializeHealth(bindedPlayer.PlayerMaxHP, bindedPlayer.PlayerCurrentHP);
     }
 

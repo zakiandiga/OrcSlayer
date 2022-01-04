@@ -10,6 +10,10 @@ public class PlayerFall : AirState
 
     }
 
+    private string coyoteJumpTimer = "CoyoteJumpTimer";
+    private float coyoteTime = 0.3f;
+    private bool canCoyote = false;
+
     private float jumpTolerance = 0.3f;
     private float jumpToleranceTimer;
 
@@ -26,6 +30,9 @@ public class PlayerFall : AirState
     public override void Exit()
     {
         base.Exit();
+        Timer.ForceStopTimer(coyoteJumpTimer);
+        if (canCoyote)
+            canCoyote = false;
     }
 
     public override void LogicUpdate()
@@ -40,8 +47,10 @@ public class PlayerFall : AirState
         SpeedChange(moveInputAxis, playerData.airAccelTime);
         SetPlayerHorizontalVelocity(horizontalVelocity, playerData.airSpeed);                       
 
-        if(stateMachine.LastState != player.JumpState)
+        //Coyote effect
+        if(stateMachine.LastState != player.JumpState && stateMachine.LastState != player.LandState)
         {
+            /*
             jumpToleranceTimer -= Time.deltaTime;
             if (jumpToleranceTimer >= 0 && player.JumpCount < playerData.maxJumpCount && isJumping)
             {
@@ -54,15 +63,33 @@ public class PlayerFall : AirState
                 player.AddJumpCount(1);
                 jumpCountAdded = true;
             }
+            */
+            if(!Timer.TimerRunning(coyoteJumpTimer))
+            {
+                Timer.Create(CoyoteSwitch, coyoteTime, coyoteJumpTimer);
+                canCoyote = true;
+            }
 
+            if(onJumpPressedTolerance && canCoyote && player.JumpCount < playerData.maxJumpCount)
+            {
+                Debug.Log("Coyote Effect Executed");
+                stateMachine.ChangeState(player.JumpState);
+            }
+            else if (!onJumpPressedTolerance && !canCoyote && !jumpCountAdded)
+            {
+                player.AddJumpCount(1);
+                jumpCountAdded = true;
+
+            }
         }
         
-
+        /*
         if (player.JumpCount < playerData.maxJumpCount && isJumping)
         {
             player.InputHandler.JumpStop();
             stateMachine.ChangeState(player.JumpState);
         }
+        */
 
         if (normalAttackInput)
         {
@@ -71,6 +98,7 @@ public class PlayerFall : AirState
 
         if (player.IsGrounded)
         {
+            
             stateMachine.ChangeState(player.LandState);
         }
     }
@@ -80,4 +108,9 @@ public class PlayerFall : AirState
         base.PhysicsUpdate();
     }
 
+    private void CoyoteSwitch()
+    {
+        if (canCoyote)
+            canCoyote = false;
+    }
 }

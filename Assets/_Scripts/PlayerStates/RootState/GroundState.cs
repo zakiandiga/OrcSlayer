@@ -26,6 +26,18 @@ public class GroundState : PlayerState
     {
         base.LogicUpdate();
 
+        if(player.IsGrounded && onJumpPressedTolerance)
+        {
+            //player.InputHandler.JumpStop();
+            if (isTurning)
+            {
+                isTurning = false;
+                ForceTurning();
+            }
+            stateMachine.ChangeState(player.JumpState);
+        }
+
+        /*
         jumpPressedTimer -= Time.deltaTime;
 
         if(isJumping)
@@ -44,6 +56,7 @@ public class GroundState : PlayerState
             }
             stateMachine.ChangeState(player.JumpState);
         }
+        */
     }
 
     public override void PhysicsUpdate()

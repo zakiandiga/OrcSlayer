@@ -45,10 +45,26 @@ public class PlayerLand : AirState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        Gravity();
 
-        if(landingDuration > 0)
-            landingDuration -= Time.deltaTime;
+        if (landingDuration > 0)
+        {
+            if (onJumpPressedTolerance)
+            {
+
+                if (isTurning)
+                {
+                    isTurning = false;
+                    ForceTurning();
+                }
+
+                Debug.Log("Jump button pressed before grounded!");
+                stateMachine.ChangeState(player.JumpState);
+            }
+
+            else
+                landingDuration -= Time.deltaTime;
+
+        }
 
         else if(landingDuration <=0)
         {
@@ -66,6 +82,8 @@ public class PlayerLand : AirState
     private void FinishLanding()
     {
         isLandingDelay = false;
+
+        
 
         if (Mathf.Abs(player.PlayerVelocity.x) <= 0.1f)
         {

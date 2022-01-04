@@ -68,7 +68,7 @@ public class Player : MonoBehaviour, IDamageHandler
 
     #region Events
     public static event Action<Player> OnInitializePlayerUI;
-    public static event Action<int> OnPlayerTakesDamage;
+    public event Action<int> OnPlayerTakesDamage;
     public static event Action<GameObject> OnPlayerDies;
     #endregion
 
@@ -174,7 +174,7 @@ public class Player : MonoBehaviour, IDamageHandler
         if (_currentHP > 0)
         {
             _currentHP -= damage;
-            OnPlayerTakesDamage?.Invoke(damage); //PlayerState subscribe to this
+            OnPlayerTakesDamage?.Invoke(damage); //PlayerState && UI subscribe to this
         }
 
         if (_currentHP <= 0)

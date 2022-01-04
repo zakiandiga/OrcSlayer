@@ -21,6 +21,10 @@ public class PlayerState: AbstractState
     protected bool isJumping;
     protected bool normalAttackInput;
 
+    protected string jumpPressedTimer = "JumpPressedTimer";
+    protected float jumpTimerTick = 0.37f;
+    protected bool onJumpPressedTolerance = false;
+
     protected float horizontalVelocity;
     protected float processedHorizontalVelocity;
     protected float verticalVelocity;
@@ -46,7 +50,9 @@ public class PlayerState: AbstractState
 
     public override void Enter()
     {
-        Player.OnPlayerTakesDamage += PlayerTakeDamage;
+        Debug.Log("Now in: " + stateMachine.CurrentState);
+
+        player.OnPlayerTakesDamage += PlayerTakeDamage;
 
         startTime = Time.time;
 
@@ -57,7 +63,7 @@ public class PlayerState: AbstractState
 
     public override void Exit()
     {
-        Player.OnPlayerTakesDamage -= PlayerTakeDamage;
+        player.OnPlayerTakesDamage -= PlayerTakeDamage;
 
         //Debug.Log("Exit from " + stateMachine.CurrentState);
     }
@@ -68,6 +74,16 @@ public class PlayerState: AbstractState
         isJumping = player.InputHandler.IsJumping;
         normalAttackInput = player.InputHandler.NormalAttack;
 
+        if (isJumping)
+        {
+            if (!Timer.TimerRunning(jumpPressedTimer))
+            {
+                onJumpPressedTolerance = true;
+                Timer.Create(JumpPressedTimeout, jumpTimerTick, jumpPressedTimer);
+            }
+            player.InputHandler.JumpStop();
+        }
+
         if (isTurning)
         {
             Turning();
@@ -77,6 +93,12 @@ public class PlayerState: AbstractState
     public override void PhysicsUpdate()
     {
 
+    }
+
+    protected void JumpPressedTimeout()
+    {
+        if (onJumpPressedTolerance)
+            onJumpPressedTolerance = false;
     }
 
     protected void SpeedChange(float targetSpeed, float momentum)

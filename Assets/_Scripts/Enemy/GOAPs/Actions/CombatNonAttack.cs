@@ -20,6 +20,8 @@ public class CombatNonAttack : EnemyAction
 
     [SerializeField] private StringReference isInCombat;
 
+    private Transform tempPlayer;
+
     public override EActionStatus Perform()
     {
         // failed condition: staggered, dies, etc
@@ -53,6 +55,8 @@ public class CombatNonAttack : EnemyAction
 
     public override bool PrePerform()
     {
+        tempPlayer = enemy.Player;
+
         adjustmentTypeIndex = Random.Range(0,2);
         adjustmentType = (AdjustmentType)adjustmentTypeIndex;
         adjustmentOngoing = true;
@@ -68,7 +72,7 @@ public class CombatNonAttack : EnemyAction
         {
             Debug.Log("Move a bit");
             
-            targetDestinationX = enemy.Player.position.x;
+            targetDestinationX = tempPlayer.position.x;
 
             targetDestination = new Vector3(targetDestinationX, enemy.EnemyPosition.y, enemy.EnemyPosition.z);
 
