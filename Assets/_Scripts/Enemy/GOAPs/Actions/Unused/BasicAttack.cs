@@ -1,19 +1,18 @@
 using UnityEngine;
 using SGoap;
 
-public class HitPlayerAction : BasicAction
+public class BasicAttack : EnemyAction
 {
-    private EnemyBehaviour enemy;
+    private bool hitOngoing = false;
+    private int delayTime = 0;
 
-    [SerializeField] private bool hitOngoing = false;
-    [SerializeField] private int delayTime = 0;
+    public override float CooldownTime => 
+        Random.Range(actionData.cooldownMinTimeModifier, actionData.cooldownMaxTimeModifier); 
 
-    private WeaponAnimationEvents weaponAnimation;
 
-    void Start()
+    public override void DynamicallyEvaluateCost()
     {
-        enemy = GetComponentInParent<EnemyBehaviour>();
-        weaponAnimation = enemy.GetComponentInChildren<WeaponAnimationEvents>();
+        Cost = Random.Range(1, actionData.chanceValue);
     }
 
     public override EActionStatus Perform()
@@ -36,20 +35,18 @@ public class HitPlayerAction : BasicAction
     }
 
     public override bool PrePerform()
-    {
-        //Debug.Log("Start hitting player");
-        
+    {        
         hitOngoing = true;
         enemy.AnimManager.SetAttack(1); //MAGIC NUMBER
-        weaponAnimation.OnAttackDone += HitDone;
+        weaponAnimation.OnAttackExecuting += HitDone;
         return base.PrePerform();
     }
 
-    private void HitDone(bool isDone)
+    private void HitDone(bool isRunning)
     {
-        if(isDone)
+        if(!isRunning)
         {
-            weaponAnimation.OnAttackDone -= HitDone;
+            weaponAnimation.OnAttackExecuting -= HitDone;
             delayTime = Random.Range(4, 10);         
         }
     }

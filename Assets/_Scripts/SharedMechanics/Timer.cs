@@ -54,7 +54,7 @@ public class Timer
             if (activeTimers[i].timerName == timerName)
             {
                 return true;
-            }
+            }            
         }
 
         return false;

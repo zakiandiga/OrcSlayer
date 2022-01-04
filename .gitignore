@@ -3,12 +3,14 @@
 [Oo]bj/
 [Bb]uild/
 [Bb]uilds/
+[Ll]ogs/
 Assets/AssetStoreTools*
 Assets/Mixamo
 Assets/Fantasy Adventure Environment
 Assets/SGOAP
 Assets/ZPlugins
 Assets/ExampleAssets
+Assets/Easy Character Movement
 
 # Visual Studio cache directory
 .vs/

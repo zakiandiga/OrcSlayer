@@ -7,8 +7,11 @@ using SGoap;
 
 public class EnemyBehaviour : MonoBehaviour, IDamageHandler
 {
-    public int MaxHealth { get { return enemyData.maxHP; } private set { } }
+    public int MaxHealth { get { return _maxHealth; } private set { } }
     public int CurrentHealth { get { return _currentHealth; } private set { } }
+
+    public int MaxStamina { get { return _maxStamina; } private set { } }
+    public float CurrentStamina { get { return _currentStamina; } private set { } }
 
     public Vector3 EnemyPosition { get { return transform.position; } private set { } }
     public float MaxWanderRange { get { return enemyData.maxWanderRange; } private set { } }
@@ -33,7 +36,12 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler
     #endregion
 
     #region private Variables
-    private int _currentHealth = 10;
+    private int _maxHealth;
+    private int _currentHealth;
+    private int _maxStamina;
+    [SerializeField] private float _currentStamina;
+
+    //Timer string(s)
     private string aggroColliderTimer = "PlayerExitAggro";
 
     #endregion
@@ -46,8 +54,10 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler
 
     [SerializeField] private EnemyType enemyType = EnemyType.neutral;
 
+    #region Events
     public static event Action<GameObject, int> OnEnemyTakesDamage;
     public static event Action<GameObject> OnEnemyDies;
+    #endregion
 
     private void Start()
     {
@@ -55,7 +65,46 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler
         goapAgent = GetComponent<Agent>();
         AnimManager = GetComponent<EnemyAnimationManager>();  
         playerSensorCollider = alertCollider.GetComponent<SphereCollider>();
+
+        //basic stats initiation
+        _maxHealth = enemyData.maxHP;
+        if(_currentHealth == 0)
+            _currentHealth = _maxHealth;
+
+        _maxStamina = enemyData.maxStamina;
+        if (_currentStamina == 0)
+        {
+            _currentStamina = _maxStamina;
+            if (!goapAgent.States.HasState("CurrentStamina"))
+                goapAgent.States.AddState("CurrentStamina", _currentStamina);
+            else
+                goapAgent.States.SetState("CurrentStamina", _currentStamina);
+        }
     }
+
+    private void Update()
+    {  
+        if (_currentStamina < _maxStamina)
+        {
+            StaminaRegen();
+        }
+    }
+
+    private void StaminaRegen()
+    {
+        _currentStamina += enemyData.staminaRegenerationRate * Time.deltaTime;
+        _currentStamina = Mathf.Clamp(_currentStamina, 0f, _maxStamina);
+        goapAgent.States.SetState("CurrentStamina", _currentStamina);
+    }
+
+    public void StaminaUsed(float value)
+    {
+        _currentStamina -= value;
+        _currentStamina = Mathf.Clamp(_currentStamina, 0f, _maxStamina);
+        goapAgent.States.SetState("CurrentStamina", _currentStamina);
+    }
+
+
 
     #region Player Sensor
     public bool IsAlert() => goapAgent.States.HasState("IsAlert");
@@ -84,6 +133,16 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler
     #endregion
 
     #region NavMesh Movement Functions
+    public void SetLookAt(Vector3 lookTarget)
+    {
+        if (Player != null)
+        {
+            navAgent.updateRotation = false;
+            transform.LookAt(Player.position);
+            navAgent.updateRotation = true;
+        }
+    }
+
     public void SetDestination(Vector3 destination, float speed)
     {
         navAgent.speed = speed;      
@@ -93,6 +152,8 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler
     public void SetStopNavMesh() => navAgent.ResetPath();
 
     public float NavRemainingDistance() => navAgent.remainingDistance;
+
+    public float NavVelocity() => Mathf.Abs(navAgent.velocity.x);
     #endregion
 
     #region Interface implementations
@@ -111,8 +172,6 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler
 
         if (_currentHealth <= 0)
             Die();
-            
-
     }
     #endregion
 }

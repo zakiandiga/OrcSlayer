@@ -66,9 +66,11 @@ public class Player : MonoBehaviour, IDamageHandler
     //DEBUG VARIABLES
     private float debugVelocity;
 
+    #region Events
     public static event Action<Player> OnInitializePlayerUI;
-    public static event Action<int> OnPlayerTakesDamage;
+    public event Action<int> OnPlayerTakesDamage;
     public static event Action<GameObject> OnPlayerDies;
+    #endregion
 
     #region Initialization
     private void Awake()
@@ -132,6 +134,9 @@ public class Player : MonoBehaviour, IDamageHandler
 
         control.Move(playerVelocity * Time.deltaTime);
 
+        if (transform.position.z != 0)
+            transform.position = new Vector3 (transform.position.x, transform.position.y, 0);
+
     }
 
     private void LateUpdate()
@@ -169,7 +174,7 @@ public class Player : MonoBehaviour, IDamageHandler
         if (_currentHP > 0)
         {
             _currentHP -= damage;
-            OnPlayerTakesDamage?.Invoke(damage); //PlayerState subscribe to this
+            OnPlayerTakesDamage?.Invoke(damage); //PlayerState && UI subscribe to this
         }
 
         if (_currentHP <= 0)

@@ -28,7 +28,7 @@ public class ActionState : PlayerState
         if (actionFinished)
         {
             
-            if (player.IsGrounded && player.PlayerVelocity.y < 0)
+            if (player.IsGrounded)// && player.PlayerVelocity.y < 0)
             {
                 stateMachine.ChangeState(player.IdleState);
             }

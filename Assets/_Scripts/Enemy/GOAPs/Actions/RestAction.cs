@@ -1,17 +1,13 @@
 using UnityEngine;
 using SGoap;
 
-public class RestAction : BasicAction
+public class RestAction : EnemyAction
 {
-    private EnemyBehaviour enemy;
     private float restingTime;
     private bool restOngoing;
     private string restingTimer = "RestingTimer";
 
-    private void Start()
-    {
-        enemy = GetComponentInParent<EnemyBehaviour>();
-    }
+    [SerializeField] private StringReference patrolPoint;
 
     public override EActionStatus Perform()
     {
@@ -30,7 +26,7 @@ public class RestAction : BasicAction
 
     public override bool PostPerform()
     {
-        States.RemoveState("PatrolPointSpent");
+        States.RemoveState(patrolPoint.Value);
         return base.PostPerform();        
     }
 
