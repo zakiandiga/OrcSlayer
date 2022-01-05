@@ -8,12 +8,19 @@ public class WeaponAnimationEvents : MonoBehaviour
 
     private WeaponCollider weaponCollider;
 
+    [SerializeField] private ParticleSystem weaponTrail;
+    [SerializeField] private float trailMaxLifetime = 0.5f; //Cheat
+    private string trailTimer = "TrailTimer";
+
     public event Action<bool> OnAttackExecuting;
 
     private void Start()
     {
         weaponCollider = weapon.GetComponentInChildren<WeaponCollider>();
         weaponComp = weapon.GetComponent<Weapon>();
+
+        if (weaponTrail != null && weaponTrail.isPlaying)
+            weaponTrail.Stop();
     }
 
     public void SetColliderOn()
@@ -29,4 +36,49 @@ public class WeaponAnimationEvents : MonoBehaviour
 
         OnAttackExecuting?.Invoke(false);
     }
+
+    public void StartTrail()
+    {
+        if(weaponTrail != null)
+        {
+            weaponTrail.Play();
+
+            if (Timer.TimerRunning(trailTimer))
+                Timer.ForceStopTimer(trailTimer);
+            
+            Timer.Create(StopTrail, trailMaxLifetime, trailTimer);
+        }
+    }
+
+    public void StopTrail()
+    {
+        if (Timer.TimerRunning(trailTimer))
+            Timer.ForceStopTimer(trailTimer);
+
+        if (weaponTrail != null && weaponTrail.isPlaying)
+            weaponTrail.Stop();
+    }
+
+    private void PlayerTakesDamage(int damage) => ForceCancelEvent();
+
+    private void PlayerLanding(Player player)
+    {
+        Debug.Log("Player Lands during air attack!!!!!!");
+        ForceCancelEvent();
+    }
+
+    private void ForceCancelEvent()
+    {
+        OnAttackExecuting?.Invoke(false);
+
+        if (weaponCollider.DamageCollider.enabled)
+        {
+            weaponCollider.DamageCollider.enabled = false;
+            weaponCollider.DamageClear();
+        }
+
+        if (weaponTrail != null && weaponTrail.isPlaying)
+            weaponTrail.Stop();
+    }
+
 }
