@@ -8,26 +8,35 @@ public class PlayerAirNormalAttack : ActionState
     {
     }
 
+    //Timer calculation variables
     private float minimumAtkTime = 0.6f;
+    private string airAttackDurationTimer = "AirAttackTimer";
+    private bool isAirAttackDone = true;
 
     public override void Enter()
     {
         base.Enter();
         Debug.Log("Normal AIR ATTACK!");
+
         minimumAtkTime = playerData.airAttackDuration;
 
         player.Anim.SetFloat("falling", 0);
         player.Anim.Play(playerAnimation.normalAirAttack);
         comboCount += 3;
         actionFinished = false;
+        isAirAttackDone = false;
     }
 
     public override void Exit()
     {
         base.Exit();
 
+        //Handling timer if forced state change happen (e.g. takes damage)
+        if (Timer.TimerRunning(airAttackDurationTimer))
+            Timer.ForceStopTimer(airAttackDurationTimer);
+
         comboCount = 0;
-        minimumAtkTime = 0;
+
         Debug.Log("Exit AIR ATTACK");
 
         actionFinished = true;
@@ -36,17 +45,21 @@ public class PlayerAirNormalAttack : ActionState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        minimumAtkTime -= Time.deltaTime;
 
-        AttackGravity();
+        if(!Timer.TimerRunning(airAttackDurationTimer))
+            Timer.Create(AirAttackDoneSwitch, minimumAtkTime, airAttackDurationTimer);
 
-        SpeedChange(0, playerData.airAccelTime);
-        SetPlayerHorizontalVelocity(horizontalVelocity, playerData.airSpeed);
+        SpeedChange(moveInputAxis, playerData.airAccelTime);
 
-        if (player.IsGrounded & minimumAtkTime <= 0)
+
+        if (player.IsGrounded & isAirAttackDone)
         {
+            horizontalVelocity = 0;
             stateMachine.ChangeState(player.LandState);
         }
+
+        AttackGravity();
+        SetPlayerHorizontalVelocity(horizontalVelocity, playerData.airSpeed);
     }
 
     public override void PhysicsUpdate()
@@ -59,7 +72,13 @@ public class PlayerAirNormalAttack : ActionState
         //verticalVelocity = verticalVelocity + playerData.gravityValue + playerData.airAttackGravityMod * Time.deltaTime;
         //player.SetVelocityY(verticalVelocity);
 
-        verticalVelocity = verticalVelocity + (playerData.gravityValue + playerData.airAttackGravityMod) * Time.deltaTime;
+        verticalVelocity += (playerData.gravityValue + playerData.airAttackGravityMod) * Time.deltaTime;
         player.SetVelocityY(verticalVelocity);
+    }
+
+    private void AirAttackDoneSwitch()
+    {
+        if (!isAirAttackDone)
+            isAirAttackDone = true;
     }
 }

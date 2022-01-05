@@ -17,17 +17,21 @@ public class PlayerAnimationHolder : AnimationHolder
 
     [Header("Movement")]
     public string roll;
-    [Tooltip("string of jumping animation STATE name")]
+    [Tooltip("string of jumping animation STATE NAME")]
     public string jumpTrigger;
-    [Tooltip("string of landing animation STATE name")]
+    [Tooltip("string of landing animation STATE NAME")]
     public string landTrigger;
-    [Tooltip("string of falling animation PARAMETER name")]
+    [Tooltip("string of falling animation PARAMETER NAME")]
     public string fallFloat;
 
-    [Tooltip("string of falling animation PARAMETER name")]
+    [Tooltip("string of falling animation PARAMETER NAME")]
     public string runningFloat;
-    [Tooltip("string of falling animation PARAMETER name")]
+    [Tooltip("string of falling animation PARAMETER NAME")]
     public string runningBool;
 
     public string driftTrigger;
+
+    [Header("Other")]
+    [Tooltip("string of take damage animation STATE NAME")]
+    public string takeDamage;
 }

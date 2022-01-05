@@ -9,20 +9,12 @@ public class PlayerDashNormalAttack : ActionState
 
     }
 
-    private float attackDelay = 0.4f;
-    private float comboGap = 1.2f;
-    private float attackDelayTime;
-    private float comboGapTime;
 
     public override void Enter()
     {
         base.Enter();
-        attackDelay = playerData.attackDelay;
-        comboGap = playerData.comboGap;
-        Debug.Log("Dash Attack!");
+
         player.Anim.Play(playerAnimation.normalSlideAttack);
-        comboGapTime = comboGap;
-        attackDelayTime = Time.time + attackDelay;
 
         comboCount += 2;
 
@@ -32,8 +24,6 @@ public class PlayerDashNormalAttack : ActionState
     public override void Exit()
     {
         base.Exit();
-        attackDelayTime = 0;
-        comboGapTime = 0;
 
         actionFinished = true;
     }
@@ -42,15 +32,15 @@ public class PlayerDashNormalAttack : ActionState
     {
         base.LogicUpdate();
 
-        if(Time.time >= attackDelayTime && normalAttackInput && comboCount <= playerData.maxComboCount)
+        Slide();   
+
+        if(Mathf.Abs(horizontalVelocity) < 0.08f)
         {
-            stateMachine.ChangeState(player.NormalAttackState);
+            horizontalVelocity = 0;
+            stateMachine.ChangeState(player.IdleState);
         }
 
-        SpeedChange(0, playerData.deccelTime);
         SetPlayerHorizontalVelocity(horizontalVelocity, playerData.groundSpeed);
-
-        ComboGapTimer();
     }
 
     public override void PhysicsUpdate()
@@ -58,13 +48,8 @@ public class PlayerDashNormalAttack : ActionState
         base.PhysicsUpdate();
     }
 
-    private void ComboGapTimer()
+    private void Slide()
     {
-        comboGapTime -= Time.deltaTime;
-        if(comboGapTime <=0)
-        {
-            comboCount = 0;
-            stateMachine.ChangeState(player.IdleState);
-        }
+        SpeedChange(0, playerData.deccelTime);
     }
 }

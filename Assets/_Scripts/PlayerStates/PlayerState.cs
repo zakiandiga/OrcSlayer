@@ -64,8 +64,6 @@ public class PlayerState: AbstractState
     public override void Exit()
     {
         player.OnPlayerTakesDamage -= PlayerTakeDamage;
-
-        //Debug.Log("Exit from " + stateMachine.CurrentState);
     }
 
     public override void LogicUpdate()

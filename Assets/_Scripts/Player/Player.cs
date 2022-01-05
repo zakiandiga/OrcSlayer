@@ -21,7 +21,7 @@ public class Player : MonoBehaviour, IDamageHandler
 
     #region Movement Calculation Properties
     public Vector3 PlayerVelocity { get { return playerVelocity; } private set { } }
-    public float RawHorizontalVelocity { get { return rawPlayerHorizontalVelocity; } private set { } }
+    public float RawHorizontalVelocity { get { return rawPlayerVelocity.x; } private set { } }
     public float CurrentAngle { get { return playerRotation.y; } private set { } }
     public int JumpCount { get { return jumpCount; } private set { } }
     public bool IsGrounded { get { return GroundCheck(); } private set { } }

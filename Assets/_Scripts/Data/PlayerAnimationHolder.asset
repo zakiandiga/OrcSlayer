@@ -25,3 +25,4 @@ MonoBehaviour:
   runningFloat: running
   runningBool: isRunning
   driftTrigger: turn
+  takeDamage: TakeHit
