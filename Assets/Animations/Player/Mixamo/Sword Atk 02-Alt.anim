@@ -34366,6 +34366,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.16666667
+    functionName: StartTrail
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.3
     functionName: SetColliderOff
     data: 
@@ -34373,8 +34380,8 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.43333334
-    functionName: StartTrail
+  - time: 0.33333334
+    functionName: StopTrail
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

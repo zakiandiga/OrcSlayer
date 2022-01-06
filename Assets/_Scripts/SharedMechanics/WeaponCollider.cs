@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +11,11 @@ public class WeaponCollider : MonoBehaviour
     private Collider _damageCollider;
     private List<GameObject> triggeredColliders = new List<GameObject>();
 
+    private Vector3 contactPoint;
+
     public int DamageAmount { get; private set; }
+
+    public event Action<Vector3> OnWeaponCollide;
 
     private void Start()
     {
@@ -28,7 +32,8 @@ public class WeaponCollider : MonoBehaviour
     {        
         if (!triggeredColliders.Contains(other.gameObject) && other.transform.root != transform.root)
         {
-            
+            contactPoint = other.ClosestPointOnBounds(transform.position);
+            OnWeaponCollide?.Invoke(contactPoint);
             triggeredColliders.Add(other.gameObject);
 
             //Debug.Log("collide with " + other.name);

@@ -50,7 +50,7 @@ public class PlayerState: AbstractState
 
     public override void Enter()
     {
-        Debug.Log("Now in: " + stateMachine.CurrentState);
+        //Debug.Log("Now in: " + stateMachine.CurrentState);
 
         player.OnPlayerTakesDamage += PlayerTakeDamage;
 
