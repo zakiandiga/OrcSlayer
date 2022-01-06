@@ -107,9 +107,9 @@ public class PlayerMove : GroundState
                 ExitFromStop();                
                 break;
 
-            //End of switch line
+            //End of switch
         }
-        //player.Anim.Play("Mixamo-Running");
+
         player.Anim.SetFloat(playerAnimation.runningFloat, Mathf.Abs(horizontalVelocity));
         SetPlayerHorizontalVelocity(horizontalVelocity, playerData.groundSpeed);
     }

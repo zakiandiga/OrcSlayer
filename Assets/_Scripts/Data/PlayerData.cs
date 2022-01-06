@@ -3,6 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "newPlayerData", menuName = "Data/PlayerData/BaseData")]
 public class PlayerData : ScriptableObject
 {
+    public string dataOwner;
+
     [Header("Player Stats")]
     public int maxHP = 10;
     public int maxStamina = 10;
@@ -45,7 +47,7 @@ public class PlayerData : ScriptableObject
     [Range(30, 200)]
     public float slowTurn = 35f;
 
-    [Header("Attack Properties")]
+    [Header("Combat Properties")]
     public int maxComboCount = 3;
     [Range(0,3)]
     public float attackDelay = 0.5f;
@@ -53,6 +55,8 @@ public class PlayerData : ScriptableObject
     public float comboGap = 0.8f;
     [Range(0, 3)]
     public float airAttackDuration = 0.5f;
+
+    public float staggerTime = 0.8f;
     
 }
 

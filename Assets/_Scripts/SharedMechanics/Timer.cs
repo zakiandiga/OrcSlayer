@@ -1,11 +1,12 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Timer
 {
     private static List<Timer> activeTimers;
-    private static GameObject initializedTimer;
+    private static GameObject initializedTimer;    
 
     private static void InitializationCheck()
     {

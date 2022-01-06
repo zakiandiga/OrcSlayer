@@ -15,6 +15,8 @@ public class PlayerLand : AirState
     public override void Enter()
     {
         base.Enter();
+
+        player.SetLandingEvent();
         player.ResetJumpCount();
         player.SetVelocityY(groundedVerticalVelocity);
 

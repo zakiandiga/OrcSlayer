@@ -13,15 +13,12 @@ public class PlayerNormalAttack : ActionState
     private string attackDelayTimer = "AttackDelayTimer";
     private string comboRefreshTimer = "ComboRefreshTimer";
     private bool attackDelayTimerRunning = false;
-    private bool comboGapTimerRunning = false;
 
     public override void Enter()
     {
         base.Enter();
         attackDelay = playerData.attackDelay;
         comboGap = playerData.comboGap;
-
-        //player.Anim.SetTrigger("normalAttack");
 
         Timer.Create(ReadyingAttack, attackDelay, attackDelayTimer);
         attackDelayTimerRunning = true;
@@ -51,7 +48,9 @@ public class PlayerNormalAttack : ActionState
         {
             //Debug.Log("Attack number: " + comboCount);
 
-            Timer.ForceStopTimer(comboRefreshTimer);
+            if(Timer.TimerRunning(comboRefreshTimer))
+                Timer.ForceStopTimer(comboRefreshTimer);
+            
             Timer.Create(ComboRefresh, comboGap, comboRefreshTimer);
 
             Timer.Create(ReadyingAttack, attackDelay, attackDelayTimer);

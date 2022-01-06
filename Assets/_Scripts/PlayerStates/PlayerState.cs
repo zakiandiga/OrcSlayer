@@ -50,7 +50,7 @@ public class PlayerState: AbstractState
 
     public override void Enter()
     {
-        Debug.Log("Now in: " + stateMachine.CurrentState);
+        //Debug.Log("Now in: " + stateMachine.CurrentState);
 
         player.OnPlayerTakesDamage += PlayerTakeDamage;
 
@@ -64,8 +64,6 @@ public class PlayerState: AbstractState
     public override void Exit()
     {
         player.OnPlayerTakesDamage -= PlayerTakeDamage;
-
-        //Debug.Log("Exit from " + stateMachine.CurrentState);
     }
 
     public override void LogicUpdate()

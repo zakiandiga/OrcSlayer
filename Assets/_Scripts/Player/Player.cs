@@ -21,7 +21,7 @@ public class Player : MonoBehaviour, IDamageHandler
 
     #region Movement Calculation Properties
     public Vector3 PlayerVelocity { get { return playerVelocity; } private set { } }
-    public float RawHorizontalVelocity { get { return rawPlayerHorizontalVelocity; } private set { } }
+    public float RawHorizontalVelocity { get { return rawPlayerVelocity.x; } private set { } }
     public float CurrentAngle { get { return playerRotation.y; } private set { } }
     public int JumpCount { get { return jumpCount; } private set { } }
     public bool IsGrounded { get { return GroundCheck(); } private set { } }
@@ -69,6 +69,7 @@ public class Player : MonoBehaviour, IDamageHandler
     #region Events
     public static event Action<Player> OnInitializePlayerUI;
     public event Action<int> OnPlayerTakesDamage;
+    public event Action<Player> OnPlayerLanding;
     public static event Action<GameObject> OnPlayerDies;
     #endregion
 
@@ -158,6 +159,8 @@ public class Player : MonoBehaviour, IDamageHandler
     public void AddJumpCount(int count) => jumpCount += count;
     public void ResetJumpCount() => jumpCount = 0;
     public void SetPlayerAngle(float angle) => playerRotation.y = angle;
+
+    public void SetLandingEvent() => OnPlayerLanding?.Invoke(this);
     #endregion
 
     #region Visual Guide
