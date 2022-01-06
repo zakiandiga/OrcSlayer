@@ -61,7 +61,6 @@ public class WeaponAnimationEvents : MonoBehaviour
     private void WeaponImpactEffect(Vector3 position)
     {
         impactParticle.transform.position = position;
-        Debug.Log("Particle player");
         impactParticle.Play();
     }
 
