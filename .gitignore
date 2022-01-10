@@ -13,6 +13,11 @@ Assets/SGOAP
 Assets/ZPlugins
 Assets/ExampleAssets
 Assets/Easy Character Movement
+[Aa]ssets/Plugins/FMOD/Cache/*
+[Aa]ssets/StreamingAssets/**/*.bank
+[Aa]ssets/StreamingAssets/**/*.bank.meta
+
+
 
 # Visual Studio cache directory
 .vs/

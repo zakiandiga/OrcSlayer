@@ -15,11 +15,38 @@ MonoBehaviour:
   Path: ../../FModProjects/SidescrollingDemo/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637770175659614909
+  lastModified: 637773613908373501
   FileSizes:
   - Name: Desktop
-    Value: 1036
+    Value: 72128
   Exists: 1
+--- !u!114 &-641996992839297405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Player/LightSwing
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Player/LightSwing
+  Guid:
+    Data1: -1596849736
+    Data2: 1106353873
+    Data3: 197560510
+    Data4: -1683986217
+  Banks:
+  - {fileID: -7041728935356030504}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 500
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35,14 +62,71 @@ MonoBehaviour:
   EditorBanks:
   - {fileID: 8223535439946579210}
   - {fileID: -7041728935356030504}
-  EditorEvents: []
+  EditorEvents:
+  - {fileID: 2870714447245664356}
+  - {fileID: -641996992839297405}
+  - {fileID: 442788153437871997}
   EditorParameters: []
   MasterBanks:
   - {fileID: -7041728935356030504}
   StringsBanks:
   - {fileID: 8223535439946579210}
-  cacheTime: 637770175659644800
+  cacheTime: 637773613908403348
   cacheVersion: 10
+--- !u!114 &442788153437871997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Player/FootStep
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Player/FootStep
+  Guid:
+    Data1: -1792371050
+    Data2: 1266655490
+    Data3: -48315729
+    Data4: -2008591167
+  Banks:
+  - {fileID: -7041728935356030504}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 528
+--- !u!114 &2870714447245664356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Player/HeavySwing
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Player/HeavySwing
+  Guid:
+    Data1: 1937172863
+    Data2: 1224540922
+    Data3: -879934076
+    Data4: -1285888969
+  Banks:
+  - {fileID: -7041728935356030504}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 500
 --- !u!114 &8223535439946579210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,8 +142,8 @@ MonoBehaviour:
   Path: ../../FModProjects/SidescrollingDemo/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637770175659644800
+  lastModified: 637773613908403348
   FileSizes:
   - Name: Desktop
-    Value: 712
+    Value: 862
   Exists: 1
