@@ -1199,16 +1199,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0c63e63072fa2546bfcb971e4b5b1ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventName: LightSwing
-  eventRev: 
-  eventReverence:
-    Guid:
-      Data1: -1596849736
-      Data2: 1106353873
-      Data3: 197560510
-      Data4: -1683986217
-    Path: event:/SFX/Player/LightSwing
-  eventLocation: {fileID: 2767689927084358994}
 --- !u!1 &2765325669932245944
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,7 +15,7 @@ public class CombatEvaluation : EnemyAction
     /// 
 
     //List of actions to be evaluate during combat
-    [SerializeField] private List<AttackAction> actionList = new List<AttackAction>();
+    [SerializeField] private List<AttackAction> actionList;
     private List<AttackAction> availableActions = new List<AttackAction>();
 
     [SerializeField] protected StringReference IsAttackAvailable;
@@ -44,6 +44,7 @@ public class CombatEvaluation : EnemyAction
         availableActions.Clear();
         isEvaluating = true;
 
+        Debug.Log("Start Evaluation");
         FindAttack();
 
         return base.PrePerform();
@@ -57,7 +58,7 @@ public class CombatEvaluation : EnemyAction
             {
                 availableActions.Add(actionList[i]);
                 actionList[i].SetCost(Random.Range(1, actionList[i].ChanceValue));
-                //Debug.Log("Add " + actionList[i].Name + " - with chance value 1/" + actionList[i].Cost);
+                Debug.Log("Add " + actionList[i].Name + " - with chance value 1/" + actionList[i].Cost);
             }
         }
 

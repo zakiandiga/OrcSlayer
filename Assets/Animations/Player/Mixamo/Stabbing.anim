@@ -16834,6 +16834,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0
+    functionName: PlaySoundOnLocation
+    data: 
+    objectReferenceParameter: {fileID: 11400000, guid: 83af3a2da1f04b2459414a092d9bc40c, type: 2}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.033333335
     functionName: StartTrail
     data: 

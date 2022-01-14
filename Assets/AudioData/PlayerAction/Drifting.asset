@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06a1fa782b440104587e3d08957860e1, type: 3}
+  m_Name: Drifting
+  m_EditorClassIdentifier: 
+  eventName: Drifting
+  eventPath:
+    Guid:
+      Data1: -287772452
+      Data2: 1250068907
+      Data3: -145433206
+      Data4: 491972739
+    Path: event:/SFX/Player/Drift
+  eventLocation: {fileID: 0}

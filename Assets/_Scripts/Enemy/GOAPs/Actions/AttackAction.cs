@@ -49,6 +49,8 @@ public class AttackAction : EnemyAction
     {
         actionOngoing = true;
         cooldownTime = Random.Range(actionData.cooldownMinTimeModifier, actionData.cooldownMaxTimeModifier);
+        Debug.Log("DOING ATTACK: " + Name);
+        
         StartAttack(currentHitPerformed);
         
         return base.PrePerform();
