@@ -3,10 +3,12 @@ using UnityEngine;
 
 public class WeaponAnimationEvents : MonoBehaviour
 {
+    public int CurrentDamage { get { return _currentDamage; } private set { } }
+
     [SerializeField] private GameObject weapon;
-    private Weapon weaponComp;
 
     private WeaponCollider weaponCollider;
+    private int _currentDamage;
 
     [SerializeField] private ParticleSystem weaponTrail, weaponParticle, impactParticle;
     private float trailMaxLifetime = 0.5f; //Cheat
@@ -17,16 +19,9 @@ public class WeaponAnimationEvents : MonoBehaviour
     private void Start()
     {
         weaponCollider = weapon.GetComponentInChildren<WeaponCollider>();
-        weaponCollider.OnWeaponCollide += WeaponImpactEffect;
-        weaponComp = weapon.GetComponent<Weapon>();
 
         if (weaponTrail != null && weaponTrail.isPlaying)
             weaponTrail.Stop();
-    }
-
-    private void OnDisable()
-    {
-        weaponCollider.OnWeaponCollide -= WeaponImpactEffect;
     }
 
     public void SetColliderOn()
@@ -41,6 +36,11 @@ public class WeaponAnimationEvents : MonoBehaviour
         weaponCollider.DamageClear();
 
         OnAttackExecuting?.Invoke(false);
+    }
+
+    public void SetCurrentDamage(int damage)
+    {
+        _currentDamage = damage;
     }
 
     public void StartTrail()
@@ -58,22 +58,6 @@ public class WeaponAnimationEvents : MonoBehaviour
         }
     }
 
-    private void WeaponImpactEffect(Vector3 position)
-    {
-        impactParticle.transform.position = position;
-        impactParticle.Play();
-    }
-
-    public void StopTrail()
-    {
-        /*
-        if (Timer.TimerRunning(trailTimer))
-            Timer.ForceStopTimer(trailTimer);
-
-        if (weaponTrail != null && weaponTrail.isPlaying)
-            weaponTrail.Stop();
-        */
-    }
 
     private void PlayerTakesDamage(int damage) => ForceCancelEvent();
 
@@ -98,3 +82,5 @@ public class WeaponAnimationEvents : MonoBehaviour
     }
 
 }
+
+

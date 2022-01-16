@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour, IDamageHandler
+public class Enemy : MonoBehaviour
 {
     public Rigidbody rb { get; private set; }
     public NavMeshAgent agent { get; private set; }
@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour, IDamageHandler
 
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Vector3 contactPoint, WeaponType weaponType)
     {
 
     }

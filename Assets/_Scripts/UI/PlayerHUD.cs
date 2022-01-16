@@ -36,13 +36,13 @@ public class PlayerHUD : MonoBehaviour
     private void OnDisable()
     {
         Player.OnInitializePlayerUI -= AssignPlayer;
-        bindedPlayer.OnPlayerTakesDamage -= ReduceHealth;
+        bindedPlayer.OnTakeDamage -= ReduceHealth;
     }
 
     private void AssignPlayer(Player player)
     {
         bindedPlayer = player;
-        bindedPlayer.OnPlayerTakesDamage += ReduceHealth; //Subs to player take damage
+        bindedPlayer.OnTakeDamage += ReduceHealth; //Subs to player take damage
         InitializeHealth(bindedPlayer.PlayerMaxHP, bindedPlayer.PlayerCurrentHP);
     }
 
@@ -54,7 +54,7 @@ public class PlayerHUD : MonoBehaviour
         healthBar.fillAmount = (float) _playerCurrentHP / _playerMaxHP;
     }
 
-    public void ReduceHealth(int damage)
+    public void ReduceHealth(int damage, Vector3 contactPoint, WeaponType weaponType)
     {
 
         _playerCurrentHP -= damage;

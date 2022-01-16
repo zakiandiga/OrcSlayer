@@ -14,6 +14,7 @@ public class PlayerDashNormalAttack : ActionState
     {
         base.Enter();
 
+        player.SetCurrentDamage(1);
         player.Anim.Play(playerAnimation.normalSlideAttack);
 
         comboCount += 2;

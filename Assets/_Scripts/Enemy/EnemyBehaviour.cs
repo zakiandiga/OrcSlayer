@@ -5,13 +5,15 @@ using UnityEngine;
 using UnityEngine.AI;
 using SGoap;
 
-public class EnemyBehaviour : MonoBehaviour, IDamageHandler
+public class EnemyBehaviour : MonoBehaviour, IDamageHandler, IAttackHandler
 {
     public int MaxHealth { get { return _maxHealth; } private set { } }
     public int CurrentHealth { get { return _currentHealth; } private set { } }
 
     public int MaxStamina { get { return _maxStamina; } private set { } }
     public float CurrentStamina { get { return _currentStamina; } private set { } }
+
+    public int StaggerTreshold { get { return _staggerTreshold; } private set { } }
 
     public Vector3 EnemyPosition { get { return transform.position; } private set { } }
     public float MaxWanderRange { get { return enemyData.maxWanderRange; } private set { } }
@@ -33,6 +35,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler
     private Agent goapAgent;
     [SerializeField] private EnemyData enemyData;
     [SerializeField] private GameObject alertCollider;
+    private EventBasedParticle eventParticle;
     #endregion
 
     #region private Variables
@@ -40,6 +43,10 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler
     private int _currentHealth;
     private int _maxStamina;
     [SerializeField] private float _currentStamina;
+    private int _staggerTreshold;
+    private int staggerCount;
+    private int staggerTolerance;
+    private int _currentDamage;
 
     //Timer string(s)
     private string aggroColliderTimer = "PlayerExitAggro";
@@ -55,8 +62,10 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler
     [SerializeField] private EnemyType enemyType = EnemyType.neutral;
 
     #region Events
+    public event Action<int, Vector3, WeaponType> OnTakeDamage;
     public static event Action<GameObject, int> OnEnemyTakesDamage;
     public static event Action<GameObject> OnEnemyDies;
+    public static event Action<GameObject> OnEnemyStagger;
     #endregion
 
     private void Start()
@@ -65,6 +74,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler
         goapAgent = GetComponent<Agent>();
         AnimManager = GetComponent<EnemyAnimationManager>();  
         playerSensorCollider = alertCollider.GetComponent<SphereCollider>();
+        eventParticle = GetComponent<EventBasedParticle>();
 
         //basic stats initiation
         _maxHealth = enemyData.maxHP;
@@ -80,6 +90,8 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler
             else
                 goapAgent.States.SetState("CurrentStamina", _currentStamina);
         }
+
+        _staggerTreshold = enemyData.staggerTrashold;
     }
 
     private void Update()
@@ -157,6 +169,16 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler
     #endregion
 
     #region Interface implementations
+    public void SetCurrentDamage(int damage)
+    {
+        _currentDamage = damage;
+    }
+
+    public int GetCurrentDamage()
+    {
+        return _currentDamage;
+    }
+
     public void Die()
     {
         OnEnemyDies?.Invoke(this.gameObject);
@@ -165,13 +187,30 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler
         gameObject.SetActive(false);
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Vector3 contactPoint, WeaponType weaponType)
     {
         _currentHealth -= damage;
-        OnEnemyTakesDamage?.Invoke(this.gameObject, damage);
+        _staggerTreshold -= damage;
+
+        OnTakeDamage?.Invoke(damage, contactPoint, weaponType);
+        //eventParticle.HitParticle(contactPoint);
 
         if (_currentHealth <= 0)
             Die();
+
+        if (_staggerTreshold <= 0)
+        {
+            Stagger();
+        }
+        
+        OnEnemyTakesDamage?.Invoke(this.gameObject, damage);
     }
     #endregion
+
+    public void Stagger()
+    {
+        staggerCount += 1;
+        _staggerTreshold = enemyData.staggerTrashold;
+        OnEnemyStagger?.Invoke(this.gameObject);
+    }
 }

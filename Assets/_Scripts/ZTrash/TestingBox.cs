@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestingBox : MonoBehaviour, IDamageHandler
+public class TestingBox : MonoBehaviour
 {
     public void Die()
     {
         
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Vector3 contactPoint, WeaponType weaponType)
     {
         Debug.Log("Box hit " + damage);
     }

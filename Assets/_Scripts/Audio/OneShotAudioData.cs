@@ -8,7 +8,4 @@ public class OneShotAudioData : ScriptableObject
 {
     public string eventName;
     public EventReference eventPath;
-    public Transform eventLocation;
-
-
 }

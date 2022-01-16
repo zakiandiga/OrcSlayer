@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(InputHandler))]
-public class Player : MonoBehaviour, IDamageHandler
+public class Player : MonoBehaviour, IDamageHandler, IAttackHandler
 {
     #region StateMachine Properties
     public PlayerStateMachine StateMachine { get; private set; }
@@ -30,6 +30,7 @@ public class Player : MonoBehaviour, IDamageHandler
     #region Player Stats Properties
     public int PlayerMaxHP { get { return playerData.maxHP; } private set { } }
     public int PlayerCurrentHP { get { return _currentHP; } private set { } }
+    public int CurrentDamage { get { return _currentDamage; } private set { } }
     public GameObject Weapon { get; private set; }
     #endregion
 
@@ -37,6 +38,7 @@ public class Player : MonoBehaviour, IDamageHandler
     public Animator Anim { get; private set; }
     public InputHandler InputHandler { get; private set; }
     private CharacterController control;
+    private EventBasedParticle eventParticle;
     #endregion
 
     #region Movement Calculation Variables
@@ -54,6 +56,7 @@ public class Player : MonoBehaviour, IDamageHandler
 
     #region Player Stats Variable
     private int _currentHP;
+    private int _currentDamage;
     [SerializeField] private Weapon _currentWeapon;
     #endregion
 
@@ -68,7 +71,7 @@ public class Player : MonoBehaviour, IDamageHandler
 
     #region Events
     public static event Action<Player> OnInitializePlayerUI;
-    public event Action<int> OnPlayerTakesDamage;
+    public event Action<int, Vector3, WeaponType> OnTakeDamage;
     public event Action<Player> OnPlayerLanding;
     public static event Action<GameObject> OnPlayerDies;
     #endregion
@@ -99,6 +102,7 @@ public class Player : MonoBehaviour, IDamageHandler
         Anim = GetComponentInChildren<Animator>();
         InputHandler = GetComponent<InputHandler>();
         control = GetComponent<CharacterController>();
+        eventParticle = GetComponent<EventBasedParticle>();
 
         StateMachine.Initialize(IdleState);
 
@@ -126,7 +130,7 @@ public class Player : MonoBehaviour, IDamageHandler
     {
         if(InputHandler.SpecialAttack)
         {
-            TakeDamage(5);
+            TakeDamage(5, this.transform.position, WeaponType.none);
         }
 
         StateMachine.CurrentState.LogicUpdate();
@@ -159,7 +163,6 @@ public class Player : MonoBehaviour, IDamageHandler
     public void AddJumpCount(int count) => jumpCount += count;
     public void ResetJumpCount() => jumpCount = 0;
     public void SetPlayerAngle(float angle) => playerRotation.y = angle;
-
     public void SetLandingEvent() => OnPlayerLanding?.Invoke(this);
     #endregion
 
@@ -172,13 +175,21 @@ public class Player : MonoBehaviour, IDamageHandler
     #endregion
 
     #region Interface Implementation
-    public void TakeDamage(int damage)
+    public void SetCurrentDamage(int damage)
     {
-        if (_currentHP > 0)
-        {
-            _currentHP -= damage;
-            OnPlayerTakesDamage?.Invoke(damage); //PlayerState && UI subscribe to this
-        }
+        _currentDamage = damage;
+    }
+
+    public int GetCurrentDamage()
+    {
+        return _currentDamage;
+    }
+
+    public void TakeDamage(int damage, Vector3 contactPoint, WeaponType weaponType)
+    {
+        _currentHP -= damage;
+
+        OnTakeDamage?.Invoke(damage, contactPoint, weaponType);
 
         if (_currentHP <= 0)
             Die();           
