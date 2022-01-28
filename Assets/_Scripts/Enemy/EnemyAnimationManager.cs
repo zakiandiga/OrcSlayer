@@ -41,6 +41,11 @@ public class EnemyAnimationManager : AnimationManager
         anim.Play(animList.taunt, -1, 0f);
     }
 
+    public void SetDead()
+    {
+        anim.Play(animList.die, -1, 0f);
+    }
+
     public void SetAttack(int comboCount)
     {
         switch (comboCount)

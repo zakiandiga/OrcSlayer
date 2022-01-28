@@ -42,10 +42,10 @@ MonoBehaviour:
   Path: ../../FModProjects/SidescrollingDemo/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637778829454968324
+  lastModified: 637789107268266870
   FileSizes:
   - Name: Desktop
-    Value: 4105472
+    Value: 4142848
   Exists: 1
 --- !u!114 &-4916402668361284177
 MonoBehaviour:
@@ -211,12 +211,13 @@ MonoBehaviour:
   - {fileID: 7385294394263024985}
   - {fileID: -7940473138251648245}
   - {fileID: 5252081106539229955}
+  - {fileID: 1114965386553302226}
   EditorParameters: []
   MasterBanks:
   - {fileID: -7041728935356030504}
   StringsBanks:
   - {fileID: 8223535439946579210}
-  cacheTime: 637778829455002235
+  cacheTime: 637789107268306742
   cacheVersion: 10
 --- !u!114 &442788153437871997
 MonoBehaviour:
@@ -245,6 +246,33 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 6200
   Length: 170
+--- !u!114 &1114965386553302226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Orc/Dies
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Orc/Dies
+  Guid:
+    Data1: -524902982
+    Data2: 1329030477
+    Data3: 1187233470
+    Data4: -1957114011
+  Banks:
+  - {fileID: -7041728935356030504}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 65
+  Length: 880
 --- !u!114 &1581980576935783847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -447,8 +475,8 @@ MonoBehaviour:
   Path: ../../FModProjects/SidescrollingDemo/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637778829455002235
+  lastModified: 637789107268306742
   FileSizes:
   - Name: Desktop
-    Value: 1374
+    Value: 1410
   Exists: 1

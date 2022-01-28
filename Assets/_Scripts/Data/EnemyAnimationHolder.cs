@@ -37,4 +37,6 @@ public class EnemyAnimationHolder : AnimationHolder
 
     [Tooltip("string of taunting animation STATE name")]
     public string taunt;
+    [Tooltip("string of die animation STATE NAME")]
+    public string die;
 }

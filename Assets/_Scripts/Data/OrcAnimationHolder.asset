@@ -27,3 +27,4 @@ MonoBehaviour:
   runningBool: isRunning
   isAggro: isAggro
   taunt: Taunting
+  die: Die

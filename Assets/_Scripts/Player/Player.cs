@@ -72,6 +72,7 @@ public class Player : MonoBehaviour, IDamageHandler, IAttackHandler
     #region Events
     public static event Action<Player> OnInitializePlayerUI;
     public event Action<int, Vector3, WeaponType> OnTakeDamage;
+    public event Action<Vector3> OnDies;
     public event Action<Player> OnPlayerLanding;
     public static event Action<GameObject> OnPlayerDies;
     #endregion
@@ -199,6 +200,7 @@ public class Player : MonoBehaviour, IDamageHandler, IAttackHandler
     {
         //Player dies!
         OnPlayerDies?.Invoke(this.gameObject);
+        OnDies?.Invoke(this.transform.position);
         //Debug.Log("player Dies!");
     }
     #endregion
