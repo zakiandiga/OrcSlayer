@@ -17,6 +17,7 @@ public class Player : MonoBehaviour, IDamageHandler, IAttackHandler
     public PlayerAirNormalAttack AirNormalAttackState { get; private set; }
     public PlayerDashNormalAttack DashNormalAttackState { get; private set; }
     public PlayerTakeDamage takeDamageState { get; private set; }
+    public PlayerDies dieState { get; private set; }
     #endregion
 
     #region Movement Calculation Properties
@@ -54,6 +55,8 @@ public class Player : MonoBehaviour, IDamageHandler, IAttackHandler
     private int jumpCount = 0;
     #endregion
 
+
+
     #region Player Stats Variable
     private int _currentHP;
     private int _currentDamage;
@@ -73,6 +76,7 @@ public class Player : MonoBehaviour, IDamageHandler, IAttackHandler
     public static event Action<Player> OnInitializePlayerUI;
     public event Action<int, Vector3, WeaponType> OnTakeDamage;
     public event Action<Vector3> OnDies;
+    public event Action<Vector3> OnClearingCorpse;
     public event Action<Player> OnPlayerLanding;
     public static event Action<GameObject> OnPlayerDies;
     #endregion
@@ -96,6 +100,7 @@ public class Player : MonoBehaviour, IDamageHandler, IAttackHandler
         AirNormalAttackState = new PlayerAirNormalAttack(this, StateMachine, playerData, playerAnimation);
         DashNormalAttackState = new PlayerDashNormalAttack(this, StateMachine, playerData, playerAnimation);
         takeDamageState = new PlayerTakeDamage(this, StateMachine, playerData, playerAnimation);
+        dieState = new PlayerDies(this, StateMachine, playerData, playerAnimation);    
     }
 
     private void Start()
@@ -131,7 +136,7 @@ public class Player : MonoBehaviour, IDamageHandler, IAttackHandler
     {
         if(InputHandler.SpecialAttack)
         {
-            TakeDamage(5, this.transform.position, WeaponType.none);
+            TakeDamage(1, this.transform.position, WeaponType.none);
         }
 
         StateMachine.CurrentState.LogicUpdate();

@@ -50,7 +50,10 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler, IAttackHandler
     private int _currentDamage;
 
     private float corpseCleaningTime => UnityEngine.Random.Range(4.5f, 6f);
-            
+
+    #region Particle Related Variables
+    [SerializeField] private Transform poofLocation;
+    #endregion
 
     //Timer string(s)
     private string aggroColliderTimer = "PlayerExitAggro";
@@ -67,8 +70,12 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler, IAttackHandler
     [SerializeField] private EnemyType enemyType = EnemyType.neutral;
 
     #region Events
+    //Interface events
     public event Action<int, Vector3, WeaponType> OnTakeDamage;
     public event Action<Vector3> OnDies;
+    public event Action<Vector3> OnClearingCorpse;
+
+    //Events to be reviewed
     public static event Action<GameObject, int> OnEnemyTakesDamage;
     public static event Action<GameObject> OnEnemyDies;
     public static event Action<GameObject> OnEnemyStagger;
@@ -210,6 +217,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler, IAttackHandler
     {
         Debug.Log("Clearing up enemy's corpse");
         //poof VFX
+        OnClearingCorpse?.Invoke(poofLocation.position);
         this.gameObject.SetActive(false);
     }
 

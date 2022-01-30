@@ -34,4 +34,6 @@ public class PlayerAnimationHolder : AnimationHolder
     [Header("Other")]
     [Tooltip("string of take damage animation STATE NAME")]
     public string takeDamage;
+    [Tooltip("string of dies animation STATE NAME")]
+    public string dies;
 }

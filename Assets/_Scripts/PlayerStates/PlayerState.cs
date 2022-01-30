@@ -55,6 +55,7 @@ public class PlayerState: AbstractState
         //Debug.Log("Now in: " + stateMachine.CurrentState);
 
         player.OnTakeDamage += PlayerTakeDamage;
+        player.OnDies += PlayerDies;
 
         startTime = Time.time;
 
@@ -66,6 +67,7 @@ public class PlayerState: AbstractState
     public override void Exit()
     {
         player.OnTakeDamage -= PlayerTakeDamage;
+        player.OnDies -= PlayerDies;
     }
 
     public override void LogicUpdate()
@@ -184,5 +186,10 @@ public class PlayerState: AbstractState
         comboCount = 0;
         currentDamage = damage;
         stateMachine.ChangeState(player.takeDamageState);
+    }
+
+    protected void PlayerDies(Vector3 position)
+    {
+        stateMachine.ChangeState(player.dieState);
     }
 }

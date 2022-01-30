@@ -26,3 +26,4 @@ MonoBehaviour:
   runningBool: isRunning
   driftTrigger: turn
   takeDamage: TakeHit
+  dies: Dies
