@@ -55,7 +55,7 @@ public class CombatNonAttack : EnemyAction
 
     public override bool PrePerform()
     {
-        tempPlayer = enemy.Player;
+        tempPlayer = enemy.Player ?? enemy.transform;
 
         adjustmentTypeIndex = Random.Range(0,2);
         adjustmentType = (AdjustmentType)adjustmentTypeIndex;
@@ -63,17 +63,17 @@ public class CombatNonAttack : EnemyAction
 
         if(adjustmentType == AdjustmentType.stay) //stay
         {
-            Debug.Log("Taunting");
+            //Debug.Log("Taunting");
             enemy.SetLookAt(transform.position);
             enemy.AnimManager.SetTaunt();
             Timer.Create(TauntingSwitch, waitDuration, tauntingTimer);
         }
         else if(adjustmentType == AdjustmentType.move)
         {
-            Debug.Log("Move a bit");
+            //Debug.Log("Move a bit");
             
             targetDestinationX = tempPlayer.position.x;
-
+                
             targetDestination = new Vector3(targetDestinationX, enemy.EnemyPosition.y, enemy.EnemyPosition.z);
 
             destinationTreshold = Random.Range(actionData.minDestinationTreshold, actionData.maxDestinationTreshold);

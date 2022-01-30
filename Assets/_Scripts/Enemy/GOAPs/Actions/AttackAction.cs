@@ -10,7 +10,6 @@ public class AttackAction : EnemyAction
     private int currentHitPerformed = 0;
     private int delayTime = 0;
 
-
     private IEnumerator posthitDelay;
 
     [SerializeField] private StringReference isAttackAvailable;
@@ -49,6 +48,8 @@ public class AttackAction : EnemyAction
     {
         actionOngoing = true;
         cooldownTime = Random.Range(actionData.cooldownMinTimeModifier, actionData.cooldownMaxTimeModifier);
+        //Debug.Log("DOING ATTACK: " + Name);
+        
         StartAttack(currentHitPerformed);
         
         return base.PrePerform();
@@ -56,6 +57,7 @@ public class AttackAction : EnemyAction
 
     private void StartAttack(int hitPerformed)
     {
+        enemy.SetCurrentDamage(actionData.damageAmount);
         enemy.AnimManager.SetAttack(actionData.hitAnimationCodeList[hitPerformed]);        
         weaponAnimation.OnAttackExecuting += PostHit;
     }

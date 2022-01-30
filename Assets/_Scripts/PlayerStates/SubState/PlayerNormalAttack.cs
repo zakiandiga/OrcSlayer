@@ -17,6 +17,7 @@ public class PlayerNormalAttack : ActionState
     public override void Enter()
     {
         base.Enter();
+
         attackDelay = playerData.attackDelay;
         comboGap = playerData.comboGap;
 
@@ -33,10 +34,13 @@ public class PlayerNormalAttack : ActionState
 
     public override void Exit()
     {
-        if(attackDelayTimerRunning)
+        base.Exit();
+        if (attackDelayTimerRunning)
             attackDelayTimerRunning = false;
 
-        base.Exit();
+        Timer.ForceStopTimer(attackDelayTimer);
+        Timer.ForceStopTimer(comboRefreshTimer);
+
         actionFinished = true;
     }
 
@@ -55,6 +59,7 @@ public class PlayerNormalAttack : ActionState
 
             Timer.Create(ReadyingAttack, attackDelay, attackDelayTimer);
             attackDelayTimerRunning = true;
+            
             comboCount++;
             AttackAnimation(comboCount);
         }
@@ -76,14 +81,17 @@ public class PlayerNormalAttack : ActionState
         switch (currentComboCount)
         {
             case 1:
+                player.SetCurrentDamage(1);
                 player.Anim.Play(playerAnimation.normalAttack01, -1, 0f);
                 break;
 
             case 2:
+                player.SetCurrentDamage(1);
                 player.Anim.Play(playerAnimation.normalAttack02, -1, 0f);
                 break;
 
             case 3:
+                player.SetCurrentDamage(2);
                 player.Anim.Play(playerAnimation.normalAttack03, -1, 0f);
                 break;
         }

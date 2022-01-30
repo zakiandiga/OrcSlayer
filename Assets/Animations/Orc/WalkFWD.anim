@@ -37458,10 +37458,24 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: 0.56666666
+    functionName: PlaySoundOnLocation
+    data: 
+    objectReferenceParameter: {fileID: 11400000, guid: 669e3af9fe0e44b4ab4dc8ae2387176b, type: 2}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 1
     functionName: StompEffectL
     data: 
     objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1
+    functionName: PlaySoundOnLocation
+    data: 
+    objectReferenceParameter: {fileID: 11400000, guid: 669e3af9fe0e44b4ab4dc8ae2387176b, type: 2}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

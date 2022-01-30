@@ -34359,6 +34359,13 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0.1
+    functionName: PlaySoundOnLocation
+    data: 
+    objectReferenceParameter: {fileID: 11400000, guid: 784ac597430e72f439e69aea7fda77d6, type: 2}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.16666667
     functionName: SetColliderOn
     data: 
@@ -34375,13 +34382,6 @@ AnimationClip:
     messageOptions: 0
   - time: 0.3
     functionName: SetColliderOff
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.33333334
-    functionName: StopTrail
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

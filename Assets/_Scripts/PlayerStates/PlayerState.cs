@@ -48,11 +48,13 @@ public class PlayerState: AbstractState
     protected int airNormalAttackCount;
     #endregion
 
+    protected int currentDamage;
+
     public override void Enter()
     {
         //Debug.Log("Now in: " + stateMachine.CurrentState);
 
-        player.OnPlayerTakesDamage += PlayerTakeDamage;
+        player.OnTakeDamage += PlayerTakeDamage;
 
         startTime = Time.time;
 
@@ -63,7 +65,7 @@ public class PlayerState: AbstractState
 
     public override void Exit()
     {
-        player.OnPlayerTakesDamage -= PlayerTakeDamage;
+        player.OnTakeDamage -= PlayerTakeDamage;
     }
 
     public override void LogicUpdate()
@@ -176,9 +178,11 @@ public class PlayerState: AbstractState
         }
     }
 
-    protected void PlayerTakeDamage(int damage)
+    protected void PlayerTakeDamage(int damage, Vector3 contactPoint, WeaponType weaponType)
     {
         //take damage state handler
+        comboCount = 0;
+        currentDamage = damage;
         stateMachine.ChangeState(player.takeDamageState);
     }
 }

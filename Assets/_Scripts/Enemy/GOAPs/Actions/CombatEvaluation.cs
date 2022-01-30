@@ -15,7 +15,7 @@ public class CombatEvaluation : EnemyAction
     /// 
 
     //List of actions to be evaluate during combat
-    [SerializeField] private List<AttackAction> actionList = new List<AttackAction>();
+    [SerializeField] private List<AttackAction> actionList;
     private List<AttackAction> availableActions = new List<AttackAction>();
 
     [SerializeField] protected StringReference IsAttackAvailable;
@@ -44,6 +44,7 @@ public class CombatEvaluation : EnemyAction
         availableActions.Clear();
         isEvaluating = true;
 
+        //Debug.Log("Start Evaluation");
         FindAttack();
 
         return base.PrePerform();

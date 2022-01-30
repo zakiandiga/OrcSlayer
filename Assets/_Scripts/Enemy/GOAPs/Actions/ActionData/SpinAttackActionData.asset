@@ -15,7 +15,8 @@ MonoBehaviour:
   cooldownMinTimeModifier: 8
   cooldownMaxTimeModifier: 12
   staggerTime: 3.8
-  chanceValue: 5
+  damageAmount: 3
+  chanceValue: 4
   minimumDistance: 0.5
   maximumDistance: 4
   staminaCost: 5

@@ -16,11 +16,11 @@ public class PlayerAirNormalAttack : ActionState
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("Normal AIR ATTACK!");
-
         minimumAtkTime = playerData.airAttackDuration;
 
         player.Anim.SetFloat("falling", 0);
+
+        player.SetCurrentDamage(1);
         player.Anim.Play(playerAnimation.normalAirAttack);
         comboCount += 3;
         actionFinished = false;
@@ -36,8 +36,6 @@ public class PlayerAirNormalAttack : ActionState
             Timer.ForceStopTimer(airAttackDurationTimer);
 
         comboCount = 0;
-
-        Debug.Log("Exit AIR ATTACK");
 
         actionFinished = true;
     }

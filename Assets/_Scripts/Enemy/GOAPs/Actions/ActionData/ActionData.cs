@@ -12,6 +12,7 @@ public class ActionData : ScriptableObject
     public float staggerTime = 0;
 
     [Header("Attack Action Properties")]
+    public int damageAmount = 1;
     [Tooltip("1 per X chance the agent will choose this attack when more than one attack actions available")]
     public int chanceValue = 1;
     public float minimumDistance;

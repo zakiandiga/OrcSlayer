@@ -5,13 +5,15 @@ using UnityEngine;
 using UnityEngine.AI;
 using SGoap;
 
-public class EnemyBehaviour : MonoBehaviour, IDamageHandler
+public class EnemyBehaviour : MonoBehaviour, IDamageHandler, IAttackHandler
 {
     public int MaxHealth { get { return _maxHealth; } private set { } }
     public int CurrentHealth { get { return _currentHealth; } private set { } }
 
     public int MaxStamina { get { return _maxStamina; } private set { } }
     public float CurrentStamina { get { return _currentStamina; } private set { } }
+
+    public int StaggerTreshold { get { return _staggerTreshold; } private set { } }
 
     public Vector3 EnemyPosition { get { return transform.position; } private set { } }
     public float MaxWanderRange { get { return enemyData.maxWanderRange; } private set { } }
@@ -29,10 +31,12 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler
 
     #region private Components
     private NavMeshAgent navAgent;
+    private CapsuleCollider enemyCollider;
     private SphereCollider playerSensorCollider;
     private Agent goapAgent;
     [SerializeField] private EnemyData enemyData;
     [SerializeField] private GameObject alertCollider;
+    private EventBasedParticle eventParticle;
     #endregion
 
     #region private Variables
@@ -40,9 +44,17 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler
     private int _currentHealth;
     private int _maxStamina;
     [SerializeField] private float _currentStamina;
+    private int _staggerTreshold;
+    private int staggerCount;
+    private int staggerTolerance;
+    private int _currentDamage;
+
+    private float corpseCleaningTime => UnityEngine.Random.Range(4.5f, 6f);
+            
 
     //Timer string(s)
     private string aggroColliderTimer = "PlayerExitAggro";
+    private string clearingEnemyTimer = "EnemyDead";
 
     #endregion
 
@@ -55,16 +67,21 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler
     [SerializeField] private EnemyType enemyType = EnemyType.neutral;
 
     #region Events
+    public event Action<int, Vector3, WeaponType> OnTakeDamage;
+    public event Action<Vector3> OnDies;
     public static event Action<GameObject, int> OnEnemyTakesDamage;
     public static event Action<GameObject> OnEnemyDies;
+    public static event Action<GameObject> OnEnemyStagger;
     #endregion
 
     private void Start()
     {
         navAgent = GetComponent<NavMeshAgent>();
         goapAgent = GetComponent<Agent>();
-        AnimManager = GetComponent<EnemyAnimationManager>();  
+        AnimManager = GetComponent<EnemyAnimationManager>();
+        enemyCollider = GetComponent<CapsuleCollider>();
         playerSensorCollider = alertCollider.GetComponent<SphereCollider>();
+        eventParticle = GetComponent<EventBasedParticle>();
 
         //basic stats initiation
         _maxHealth = enemyData.maxHP;
@@ -80,6 +97,16 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler
             else
                 goapAgent.States.SetState("CurrentStamina", _currentStamina);
         }
+
+        if(goapAgent.States.HasState("IsDead"))
+        {
+            goapAgent.States.RemoveState("IsDead");
+        }
+
+        _staggerTreshold = enemyData.staggerTrashold;
+
+        if (!enemyCollider.enabled)
+            enemyCollider.enabled = true;
     }
 
     private void Update()
@@ -157,21 +184,61 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler
     #endregion
 
     #region Interface implementations
-    public void Die()
+    public void SetCurrentDamage(int damage)
     {
-        OnEnemyDies?.Invoke(this.gameObject);
-
-        //temporary dies
-        gameObject.SetActive(false);
+        _currentDamage = damage;
     }
 
-    public void TakeDamage(int damage)
+    public int GetCurrentDamage()
     {
+        return _currentDamage;
+    }
+
+    public void Die()
+    {
+        AnimManager.SetDead();
+        enemyCollider.enabled = false;
+        OnEnemyDies?.Invoke(this.gameObject);
+        OnDies?.Invoke(this.transform.position);
+        Debug.Log("Enemy dies");
+        goapAgent.States.SetState("IsDead", 1);
+        Timer.Create(ClearEnemy, corpseCleaningTime, clearingEnemyTimer);
+
+    }
+
+    public void ClearEnemy()
+    {
+        Debug.Log("Clearing up enemy's corpse");
+        //poof VFX
+        this.gameObject.SetActive(false);
+    }
+
+    public void TakeDamage(int damage, Vector3 contactPoint, WeaponType weaponType)
+    {
+
+        Debug.Log("enemy takes damage");
         _currentHealth -= damage;
-        OnEnemyTakesDamage?.Invoke(this.gameObject, damage);
+        _staggerTreshold -= damage;
+
+        OnTakeDamage?.Invoke(damage, contactPoint, weaponType);
+        //eventParticle.HitParticle(contactPoint);
 
         if (_currentHealth <= 0)
             Die();
+
+        if (_staggerTreshold <= 0)
+        {
+            Stagger();
+        }
+        
+        OnEnemyTakesDamage?.Invoke(this.gameObject, damage);
     }
     #endregion
+
+    public void Stagger()
+    {
+        staggerCount += 1;
+        _staggerTreshold = enemyData.staggerTrashold;
+        OnEnemyStagger?.Invoke(this.gameObject);
+    }
 }

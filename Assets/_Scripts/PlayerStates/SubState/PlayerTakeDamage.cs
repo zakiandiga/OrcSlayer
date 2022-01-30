@@ -14,6 +14,7 @@ public class PlayerTakeDamage : ActionState
     public override void Enter()
     {
         base.Enter();
+
         player.Anim.Play(playerAnimation.takeDamage);
         //Debug.Log("Player take damage from " + stateMachine.LastState);
         actionFinished = false;

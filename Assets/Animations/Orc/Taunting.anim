@@ -50842,4 +50842,11 @@ AnimationClip:
     script: {fileID: 0}
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.6666667
+    functionName: PlaySoundOnLocation
+    data: 
+    objectReferenceParameter: {fileID: 11400000, guid: b588d4aa45780bf4c892d9fbbbbe0169, type: 2}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

@@ -1,5 +1,32 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7940473138251648245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Impacts/SwordImpact01
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Impacts/SwordImpact01
+  Guid:
+    Data1: 967990648
+    Data2: 1246629263
+    Data3: -203501646
+    Data4: 193557850
+  Banks:
+  - {fileID: -7041728935356030504}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 65
+  Length: 540
 --- !u!114 &-7041728935356030504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15,11 +42,146 @@ MonoBehaviour:
   Path: ../../FModProjects/SidescrollingDemo/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637770175659614909
+  lastModified: 637789107268266870
   FileSizes:
   - Name: Desktop
-    Value: 1036
+    Value: 4142848
   Exists: 1
+--- !u!114 &-4916402668361284177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Orc/FootStep
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Orc/FootStep
+  Guid:
+    Data1: 510406576
+    Data2: 1105312700
+    Data3: -972387912
+    Data4: 785256427
+  Banks:
+  - {fileID: -7041728935356030504}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 65
+  Length: 490
+--- !u!114 &-4370849455385046640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Orc/Taunt
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Orc/Taunt
+  Guid:
+    Data1: 1604709656
+    Data2: 1161584349
+    Data3: 1442391479
+    Data4: -1495361935
+  Banks:
+  - {fileID: -7041728935356030504}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 65
+  Length: 1080
+--- !u!114 &-2204436334016565736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Player/Jump
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Player/Jump
+  Guid:
+    Data1: 325154199
+    Data2: 1293990801
+    Data3: -196918137
+    Data4: 75561241
+  Banks:
+  - {fileID: -7041728935356030504}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 6200
+  Length: 360
+--- !u!114 &-641996992839297405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Player/LightSwing
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Player/LightSwing
+  Guid:
+    Data1: -306961409
+    Data2: 1163843366
+    Data3: -379535452
+    Data4: 485617354
+  Banks:
+  - {fileID: -7041728935356030504}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 6200
+  Length: 500
+--- !u!114 &-516004633490746098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Orc/SpinAttack
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Orc/SpinAttack
+  Guid:
+    Data1: -1712895394
+    Data2: 1143380455
+    Data3: 797886866
+    Data4: -1216990002
+  Banks:
+  - {fileID: -7041728935356030504}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 65
+  Length: 1256
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35,14 +197,269 @@ MonoBehaviour:
   EditorBanks:
   - {fileID: 8223535439946579210}
   - {fileID: -7041728935356030504}
-  EditorEvents: []
+  EditorEvents:
+  - {fileID: 2870714447245664356}
+  - {fileID: -641996992839297405}
+  - {fileID: 442788153437871997}
+  - {fileID: 2457934111629278942}
+  - {fileID: 3204240144735186114}
+  - {fileID: -2204436334016565736}
+  - {fileID: -4916402668361284177}
+  - {fileID: 5768386768768170882}
+  - {fileID: -516004633490746098}
+  - {fileID: -4370849455385046640}
+  - {fileID: 7385294394263024985}
+  - {fileID: -7940473138251648245}
+  - {fileID: 5252081106539229955}
+  - {fileID: 1114965386553302226}
   EditorParameters: []
   MasterBanks:
   - {fileID: -7041728935356030504}
   StringsBanks:
   - {fileID: 8223535439946579210}
-  cacheTime: 637770175659644800
+  cacheTime: 637789107268306742
   cacheVersion: 10
+--- !u!114 &442788153437871997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Player/FootStep
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Player/FootStep
+  Guid:
+    Data1: -1681066790
+    Data2: 1184462749
+    Data3: 561393059
+    Data4: 1765144420
+  Banks:
+  - {fileID: -7041728935356030504}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 6200
+  Length: 170
+--- !u!114 &1114965386553302226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Orc/Dies
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Orc/Dies
+  Guid:
+    Data1: -524902982
+    Data2: 1329030477
+    Data3: 1187233470
+    Data4: -1957114011
+  Banks:
+  - {fileID: -7041728935356030504}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 65
+  Length: 880
+--- !u!114 &1581980576935783847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Impact/WeaponType
+  m_EditorClassIdentifier: 
+  Name: WeaponType
+  StudioPath: 
+  Min: 0
+  Max: 4
+  Default: 4
+  ID:
+    data1: 2335479799
+    data2: 3295454960
+  Type: 1
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &2457934111629278942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Player/Drift
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Player/Drift
+  Guid:
+    Data1: -287772452
+    Data2: 1250068907
+    Data3: -145433206
+    Data4: 491972739
+  Banks:
+  - {fileID: -7041728935356030504}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 6200
+  Length: 666
+--- !u!114 &2870714447245664356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Player/HeavySwing
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Player/HeavySwing
+  Guid:
+    Data1: 56497536
+    Data2: 1324866571
+    Data3: -1376926044
+    Data4: 634751631
+  Banks:
+  - {fileID: -7041728935356030504}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 6200
+  Length: 500
+--- !u!114 &3204240144735186114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Player/Land
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Player/Land
+  Guid:
+    Data1: -1218693013
+    Data2: 1193220831
+    Data3: -74015061
+    Data4: -518671961
+  Banks:
+  - {fileID: -7041728935356030504}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 6200
+  Length: 460
+--- !u!114 &5252081106539229955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Orc/Impact
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Orc/Impact
+  Guid:
+    Data1: 1272551306
+    Data2: 1216355500
+    Data3: 715704485
+    Data4: 435866504
+  Banks:
+  - {fileID: -7041728935356030504}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 0
+  Parameters:
+  - {fileID: 1581980576935783847}
+  MinDistance: 0
+  MaxDistance: 65
+  Length: 540
+--- !u!114 &5768386768768170882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/SFX/Orc/SwingAttack
+  m_EditorClassIdentifier: 
+  Path: event:/SFX/Orc/SwingAttack
+  Guid:
+    Data1: -74848044
+    Data2: 1130497808
+    Data3: 941783206
+    Data4: -1235099136
+  Banks:
+  - {fileID: -7041728935356030504}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 65
+  Length: 250
+--- !u!114 &7385294394263024985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/BGM/BGM-Forest
+  m_EditorClassIdentifier: 
+  Path: event:/BGM/BGM-Forest
+  Guid:
+    Data1: -226539423
+    Data2: 1080416286
+    Data3: 485631162
+    Data4: 1262625101
+  Banks:
+  - {fileID: -7041728935356030504}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 420000
 --- !u!114 &8223535439946579210
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58,8 +475,8 @@ MonoBehaviour:
   Path: ../../FModProjects/SidescrollingDemo/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637770175659644800
+  lastModified: 637789107268306742
   FileSizes:
   - Name: Desktop
-    Value: 712
+    Value: 1410
   Exists: 1

@@ -56153,8 +56153,15 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0
+    functionName: PlaySoundOnLocation
+    data: 
+    objectReferenceParameter: {fileID: 11400000, guid: c125b484c3786114680c5e93e0e1e788, type: 2}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.26666668
-    functionName: 
+    functionName: StartTrail
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
