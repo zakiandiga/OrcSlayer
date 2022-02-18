@@ -34,8 +34,6 @@ public class RestAction : EnemyAction
     {
         enemy.SetAlertColliderRadius(enemy.RestAlertColliderRadius);
         restingTime = Random.Range(5f, 8f);
-        //StartCoroutine(RestingDelay());
-        Debug.Log("Resting Timer Started");
         restOngoing = true;
         Timer.Create(RestingSwitch, restingTime, restingTimer);
         return base.PrePerform();
@@ -43,7 +41,6 @@ public class RestAction : EnemyAction
 
     private void RestingSwitch()
     {
-        Debug.Log("Resting Timer Done");
         if (restOngoing)
             restOngoing = false;
     }

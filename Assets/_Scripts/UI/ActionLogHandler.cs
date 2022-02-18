@@ -15,7 +15,7 @@ public class ActionLogHandler : MonoBehaviour
     private void OnEnable()
     {
         //Player.OnPlayerTakesDamage += PlayerTakesDamage;
-        Player.OnPlayerDies += PlayerDies;
+        //Player.OnPlayerDies += PlayerDies;
         EnemyBehaviour.OnEnemyTakesDamage += EnemyTakesDamage;
         EnemyBehaviour.OnEnemyDies += EnemyDies;
     }
@@ -23,7 +23,7 @@ public class ActionLogHandler : MonoBehaviour
     private void OnDisable()
     {
         //Player.OnPlayerTakesDamage -= PlayerTakesDamage;
-        Player.OnPlayerDies -= PlayerDies;
+        //Player.OnPlayerDies -= PlayerDies;
         EnemyBehaviour.OnEnemyTakesDamage -= EnemyTakesDamage;
         EnemyBehaviour.OnEnemyDies -= EnemyDies;
     }

@@ -204,7 +204,7 @@ public class Player : MonoBehaviour, IDamageHandler, IAttackHandler
     public void Die()
     {
         //Player dies!
-        OnPlayerDies?.Invoke(this.gameObject);
+        control.enabled = false;
         OnDies?.Invoke(this.transform.position);
         //Debug.Log("player Dies!");
     }

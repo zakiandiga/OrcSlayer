@@ -215,7 +215,6 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler, IAttackHandler
 
     public void ClearEnemy()
     {
-        Debug.Log("Clearing up enemy's corpse");
         //poof VFX
         OnClearingCorpse?.Invoke(poofLocation.position);
         this.gameObject.SetActive(false);
@@ -223,8 +222,6 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler, IAttackHandler
 
     public void TakeDamage(int damage, Vector3 contactPoint, WeaponType weaponType)
     {
-
-        Debug.Log("enemy takes damage");
         _currentHealth -= damage;
         _staggerTreshold -= damage;
 
