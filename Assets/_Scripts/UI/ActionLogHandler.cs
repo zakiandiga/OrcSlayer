@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Text log system for temporary debug purpose
+/// </summary>
 public class ActionLogHandler : MonoBehaviour
 {
     private int maxMessages = 10;

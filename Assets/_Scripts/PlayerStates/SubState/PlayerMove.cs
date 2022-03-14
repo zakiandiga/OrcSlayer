@@ -106,8 +106,6 @@ public class PlayerMove : GroundState
                 
                 ExitFromStop();                
                 break;
-
-            //End of switch
         }
 
         player.Anim.SetFloat(playerAnimation.runningFloat, Mathf.Abs(horizontalVelocity));
@@ -185,11 +183,11 @@ public class PlayerMove : GroundState
 
     private void ExitFromDrifting()
     {
-        if (Mathf.Abs(horizontalVelocity) < 0.1f && !isTurning)// Mathf.Abs(tempAxis) == 1 &&
+        if (Mathf.Abs(horizontalVelocity) < 0.1f && !isTurning)
         {
             moveState = MoveState.stop;
         }
-        else if (Mathf.Abs(horizontalVelocity) > 0.1f && !isTurning)// Mathf.Abs(tempAxis) == 1 &&
+        else if (Mathf.Abs(horizontalVelocity) > 0.1f && !isTurning)
         {
             moveState = MoveState.ready;
         }

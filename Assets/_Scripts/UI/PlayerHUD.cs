@@ -8,7 +8,7 @@ public class PlayerHUD : MonoBehaviour
 {
     //private HealthPoint healthPoint;
 
-    [SerializeField] private Image healthBar;
+    [SerializeField] private Slider healthBar;
 
 
     private Player bindedPlayer;
@@ -50,54 +50,13 @@ public class PlayerHUD : MonoBehaviour
     {
         _playerMaxHP = maxHealth;
         _playerCurrentHP = currentHealth;
-        Debug.Log(_playerCurrentHP + "/" + _playerMaxHP);
-        healthBar.fillAmount = (float) _playerCurrentHP / _playerMaxHP;
+        healthBar.value = (float) _playerCurrentHP / _playerMaxHP;
     }
 
     public void ReduceHealth(int damage, Vector3 contactPoint, WeaponType weaponType)
     {
 
         _playerCurrentHP -= damage;
-        healthBar.fillAmount = (float) _playerCurrentHP / _playerMaxHP;
+        healthBar.value = (float) _playerCurrentHP / _playerMaxHP;
     }
-}
-
-//Currently unused
-public class HealthPoint
-{
-    public const int MaxHealthDisplay = 100;
-
-    private float changeAmount;
-    private float currentHealth;
-    private float regenAmount;
-
-    public HealthPoint()
-    {
-        currentHealth = 0;
-    }
-
-    public void InitializeHealth(int startingHealth)
-    {
-        currentHealth = startingHealth;
-    }
-
-    public void RecoverHealth (int healthChange)
-    {
-        if(currentHealth <= 0)
-        {
-            currentHealth += healthChange;
-        }
-    }
-
-    public void ReduceHealth (int damage)
-    {
-        if (currentHealth >= 0)
-            currentHealth -= damage;
-    }
-
-    public float NormalizedHealthValue()
-    {
-        return currentHealth / MaxHealthDisplay;
-    }
-
 }

@@ -44,12 +44,9 @@ public class WeaponCollider : MonoBehaviour
             damageHandler = other.GetComponent<IDamageHandler>();
 
             if (damageHandler != null)
-                damageHandler.TakeDamage(currentDamage, contactPoint, _weaponType); //MagicNumber
+                damageHandler.TakeDamage(currentDamage, contactPoint, _weaponType);
 
-        }
-        //else
-            //Debug.Log("Already collided with " + other.gameObject);
-        
+        }        
     }
     
 }

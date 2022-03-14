@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerFall : AirState
 {
-
     public PlayerFall(Player player, PlayerStateMachine stateMachine, PlayerData playerData, PlayerAnimationHolder playerAnimation) : base(player, stateMachine, playerData, playerAnimation)
     {
 

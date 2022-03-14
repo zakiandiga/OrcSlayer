@@ -16,7 +16,6 @@ public class PlayerAnimationManager : MonoBehaviour
     {
         tempPosition = parent.position;
         tempPosition.x += animator.deltaPosition.x;
-        //tempPosition.y += animator.deltaPosition.y;
 
         parent.position = tempPosition;
     }

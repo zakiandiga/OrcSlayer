@@ -29,6 +29,7 @@ public class Player : MonoBehaviour, IDamageHandler, IAttackHandler
     #endregion
 
     #region Player Stats Properties
+    public Vector3 PlayerPosition { get { return transform.position; } private set { } }
     public int PlayerMaxHP { get { return playerData.maxHP; } private set { } }
     public int PlayerCurrentHP { get { return _currentHP; } private set { } }
     public int CurrentDamage { get { return _currentDamage; } private set { } }
@@ -75,8 +76,8 @@ public class Player : MonoBehaviour, IDamageHandler, IAttackHandler
     #region Events
     public static event Action<Player> OnInitializePlayerUI;
     public event Action<int, Vector3, WeaponType> OnTakeDamage;
-    public event Action<Vector3> OnDies;
-    public event Action<Vector3> OnClearingCorpse;
+    public event Action<GameObject, Vector3> OnDies;
+    public event Action<GameObject, Vector3> OnClearingCorpse;
     public event Action<Player> OnPlayerLanding;
     public static event Action<GameObject> OnPlayerDies;
     #endregion
@@ -134,10 +135,13 @@ public class Player : MonoBehaviour, IDamageHandler, IAttackHandler
 
     private void Update()
     {
-        if(InputHandler.SpecialAttack)
-        {
-            TakeDamage(1, this.transform.position, WeaponType.none);
-        }
+        /*
+         *Quick test for taking damage
+         *if(InputHandler.SpecialAttack)
+         *{
+         *TakeDamage(1, this.transform.position, WeaponType.none);
+         *}
+        */
 
         StateMachine.CurrentState.LogicUpdate();
 
@@ -160,24 +164,21 @@ public class Player : MonoBehaviour, IDamageHandler, IAttackHandler
     {
         return Physics.CheckSphere(groundChecker.position, checkerRadius, checkerMask);
     }
+
     public void SetVelocityX(float horizontalVelocity, float speedModifier)
     {
         rawPlayerVelocity.x = horizontalVelocity;
         playerVelocity.x = rawPlayerVelocity.x * speedModifier;
     }
     public void SetVelocityY(float verticalVelocity) => playerVelocity.y = verticalVelocity;
-    public void AddJumpCount(int count) => jumpCount += count;
-    public void ResetJumpCount() => jumpCount = 0;
-    public void SetPlayerAngle(float angle) => playerRotation.y = angle;
-    public void SetLandingEvent() => OnPlayerLanding?.Invoke(this);
-    #endregion
 
-    #region Visual Guide
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(groundChecker.position, checkerRadius);
-    }
+    public void AddJumpCount(int count) => jumpCount += count;
+
+    public void ResetJumpCount() => jumpCount = 0;
+
+    public void SetPlayerAngle(float angle) => playerRotation.y = angle;
+
+    public void SetLandingEvent() => OnPlayerLanding?.Invoke(this);
     #endregion
 
     #region Interface Implementation
@@ -205,9 +206,15 @@ public class Player : MonoBehaviour, IDamageHandler, IAttackHandler
     {
         //Player dies!
         control.enabled = false;
-        OnDies?.Invoke(this.transform.position);
-        //Debug.Log("player Dies!");
+        OnDies?.Invoke(this.gameObject, this.transform.position);
     }
     #endregion
 
+    #region GroundCheck Visual Guide
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(groundChecker.position, checkerRadius);
+    }
+    #endregion
 }

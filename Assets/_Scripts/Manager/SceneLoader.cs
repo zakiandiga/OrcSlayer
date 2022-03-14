@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class SceneLoader : MonoBehaviour
 {
+    //Currently the only Scene to go to after the game is this gameOverScene
+    [SerializeField] private string gameOverScene;
+
     [SerializeField] private List<string> scenesToLoad;
     [SerializeField] private List<string> scenesLoaded;
 
@@ -29,10 +32,12 @@ public class SceneLoader : MonoBehaviour
 
     private void CurtainAnimationFollowup(bool fadeIn)
     {
-        //if fadeIn = when curtain fully open
+        //Now, the only case that the curtain fading out is a transition to the gameOverScene
+        if (!fadeIn)
+            SceneManager.LoadScene(gameOverScene);
     }
 
-
+    ///Loading all the additive scene.
     private void LoadScenes()
     {
         for(int i = 0; i<scenesToLoad.Count; i++)

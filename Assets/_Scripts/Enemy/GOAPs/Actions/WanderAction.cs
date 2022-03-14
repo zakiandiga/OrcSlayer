@@ -24,7 +24,7 @@ public class WanderAction : EnemyAction
         enemy.SetDestination(targetDestination, actionData.moveSpeed);
 
         enemy.AnimManager.SetRunningBool(true);
-        //enemy.AnimManager.SetRunningFloat(0); //Magic number
+
         return base.PrePerform();
     }
 

@@ -59,7 +59,6 @@ public class PlayerLand : AirState
                     ForceTurning();
                 }
 
-                Debug.Log("Jump button pressed before grounded!");
                 stateMachine.ChangeState(player.JumpState);
             }
 

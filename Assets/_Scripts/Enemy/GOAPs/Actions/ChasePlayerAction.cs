@@ -12,8 +12,8 @@ public class ChasePlayerAction : EnemyAction
     public override bool PrePerform()
     {
         enemy.SetAlertColliderRadius(enemy.AggroAlertColliderRadius);
-        targetPositionX = enemy.Player.position.x;
-        targetDestination = new Vector3(enemy.Player.position.x, enemy.EnemyPosition.y, enemy.EnemyPosition.z);
+        targetPositionX = enemy.currentPlayer.position.x;
+        targetDestination = new Vector3(enemy.currentPlayer.position.x, enemy.EnemyPosition.y, enemy.EnemyPosition.z);
         destinationTreshold = Random.Range(actionData.minDestinationTreshold, actionData.maxDestinationTreshold);
 
         enemy.SetDestination(targetDestination, enemy.AggroSpeed);

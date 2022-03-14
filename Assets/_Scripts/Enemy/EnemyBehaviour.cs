@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using SGoap;
@@ -25,7 +23,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler, IAttackHandler
     public float RestAlertColliderRadius { get { return enemyData.restAlertColliderRadius; } private set { } }
     public float UnaggroDelay { get { return enemyData.unaggroDelay; } private set { } }
 
-    public Transform Player { get; private set; }    
+    public Transform currentPlayer { get; private set; }    
     public NavMeshPath AgentPath { get { return navAgent.path; } private set { } }
     public EnemyAnimationManager AnimManager { get; private set; }
 
@@ -48,6 +46,8 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler, IAttackHandler
     private int staggerCount;
     private int staggerTolerance;
     private int _currentDamage;
+
+    private IDamageHandler playerDamageHandler;
 
     private float corpseCleaningTime => UnityEngine.Random.Range(4.5f, 6f);
 
@@ -72,8 +72,11 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler, IAttackHandler
     #region Events
     //Interface events
     public event Action<int, Vector3, WeaponType> OnTakeDamage;
-    public event Action<Vector3> OnDies;
-    public event Action<Vector3> OnClearingCorpse;
+    public event Action<GameObject, Vector3> OnDies;
+    public event Action<GameObject, Vector3> OnClearingCorpse;
+
+    //OnInitialize Events
+    public static event Action<EnemyBehaviour> OnEnemySpawn;
 
     //Events to be reviewed
     public static event Action<GameObject, int> OnEnemyTakesDamage;
@@ -81,18 +84,24 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler, IAttackHandler
     public static event Action<GameObject> OnEnemyStagger;
     #endregion
 
-    private void Start()
+    private void Awake()
     {
         navAgent = GetComponent<NavMeshAgent>();
         goapAgent = GetComponent<Agent>();
         AnimManager = GetComponent<EnemyAnimationManager>();
         enemyCollider = GetComponent<CapsuleCollider>();
         playerSensorCollider = alertCollider.GetComponent<SphereCollider>();
-        eventParticle = GetComponent<EventBasedParticle>();
+        eventParticle = GetComponent<EventBasedParticle>();       
+    }
 
+    private void OnEnable()
+    {
         //basic stats initiation
+        if (!enemyCollider.enabled)
+            enemyCollider.enabled = true;
+
         _maxHealth = enemyData.maxHP;
-        if(_currentHealth == 0)
+        if (_currentHealth <= 0)
             _currentHealth = _maxHealth;
 
         _maxStamina = enemyData.maxStamina;
@@ -105,15 +114,14 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler, IAttackHandler
                 goapAgent.States.SetState("CurrentStamina", _currentStamina);
         }
 
-        if(goapAgent.States.HasState("IsDead"))
+        if (goapAgent.States.HasState("IsDead"))
         {
             goapAgent.States.RemoveState("IsDead");
         }
 
         _staggerTreshold = enemyData.staggerTrashold;
 
-        if (!enemyCollider.enabled)
-            enemyCollider.enabled = true;
+        OnEnemySpawn?.Invoke(this);
     }
 
     private void Update()
@@ -131,6 +139,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler, IAttackHandler
         goapAgent.States.SetState("CurrentStamina", _currentStamina);
     }
 
+    //Amount of stamina spent after executing specific attack (Called from the attack script)
     public void StaminaUsed(float value)
     {
         _currentStamina -= value;
@@ -138,19 +147,23 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler, IAttackHandler
         goapAgent.States.SetState("CurrentStamina", _currentStamina);
     }
 
-
-
     #region Player Sensor
+    //Check whether this enemy is currently in aggro state
     public bool IsAlert() => goapAgent.States.HasState("IsAlert");
 
+    //Set the alert collider radius from the inspector
     public void SetAlertColliderRadius(float targetRadius) => playerSensorCollider.radius = targetRadius;
 
+    //Set the current target player when this enemy turns aggro
     public void SetPlayerOn(Transform player)
     {
         if (!IsAlert())
         {
-            Player = player;
-            goapAgent.States.AddState("IsAlert", 1);
+            currentPlayer = player;
+            playerDamageHandler = currentPlayer.GetComponent<IDamageHandler>();
+            playerDamageHandler.OnDies += PlayerDieHandler;
+
+            goapAgent.States.AddState("IsAlert", 1);            
         }
         else        
             Timer.ForceStopTimer(aggroColliderTimer);
@@ -160,19 +173,22 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler, IAttackHandler
 
     private void PlayerExitAggro()
     {
-        Player = null;
+        playerDamageHandler.OnDies -= PlayerDieHandler;
+        playerDamageHandler = null;
+        currentPlayer = null;
         goapAgent.States.RemoveState("IsAlert");
     }
 
+    private void PlayerDieHandler(GameObject player, Vector3 position) => PlayerExitAggro();
     #endregion
 
     #region NavMesh Movement Functions
     public void SetLookAt(Vector3 lookTarget)
     {
-        if (Player != null)
+        if (currentPlayer != null)
         {
             navAgent.updateRotation = false;
-            transform.LookAt(Player.position);
+            transform.LookAt(currentPlayer.position);
             navAgent.updateRotation = true;
         }
     }
@@ -206,7 +222,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler, IAttackHandler
         AnimManager.SetDead();
         enemyCollider.enabled = false;
         OnEnemyDies?.Invoke(this.gameObject);
-        OnDies?.Invoke(this.transform.position);
+        OnDies?.Invoke(this.gameObject, this.transform.position);
         Debug.Log("Enemy dies");
         goapAgent.States.SetState("IsDead", 1);
         Timer.Create(ClearEnemy, corpseCleaningTime, clearingEnemyTimer);
@@ -216,8 +232,7 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler, IAttackHandler
     public void ClearEnemy()
     {
         //poof VFX
-        OnClearingCorpse?.Invoke(poofLocation.position);
-        this.gameObject.SetActive(false);
+        OnClearingCorpse?.Invoke(this.gameObject, poofLocation.position);
     }
 
     public void TakeDamage(int damage, Vector3 contactPoint, WeaponType weaponType)
@@ -226,7 +241,6 @@ public class EnemyBehaviour : MonoBehaviour, IDamageHandler, IAttackHandler
         _staggerTreshold -= damage;
 
         OnTakeDamage?.Invoke(damage, contactPoint, weaponType);
-        //eventParticle.HitParticle(contactPoint);
 
         if (_currentHealth <= 0)
             Die();

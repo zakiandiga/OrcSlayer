@@ -13,6 +13,6 @@ public class PlayerDies : ActionState
         base.Enter();
 
         player.Anim.Play(playerAnimation.dies);
-        player.InputHandler.InputActionSwitch(false);
+        player.InputHandler.PlayerInputSwitch(false);
     }
 }

@@ -20,7 +20,6 @@ public class PlayerJump : ActionState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
     }
 
 
@@ -31,7 +30,6 @@ public class PlayerJump : ActionState
         player.AddJumpCount(1);
         verticalVelocity += Mathf.Sqrt(playerData.jumpHeight * playerData.jumpConst * playerData.gravityValue);
         player.SetVelocityY(verticalVelocity);
-        //player.Anim.SetTrigger("jump");
         player.Anim.Play(playerAnimation.jumpTrigger);
 
         actionFinished = true;

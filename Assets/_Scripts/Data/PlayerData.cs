@@ -59,20 +59,3 @@ public class PlayerData : ScriptableObject
     public float staggerTime = 0.8f;
     
 }
-
-    ////Default Initial
-/*
-public float groundSpeed = 15f;
-public float airSpeed = 8f;
-public float airAccelTime = 5f;
-public float accelTime = 20f;
-public float deccelTime = 18.4f;
-public float driftingStrong = 9.5f;
-public float driftingWeak = 5f;
-public float turningSpeed = 500f;
-
-public float jumpHeight = 8;
-public float jumpConst = -1f;
-public float gravityValue = -98.5f;
-public int maxJumpCount = 2;
-*/

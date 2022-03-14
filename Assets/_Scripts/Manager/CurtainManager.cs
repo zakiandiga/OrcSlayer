@@ -28,10 +28,9 @@ public class CurtainManager : MonoBehaviour
     private void AssignPlayer(Player player)
     {
         assignedPlayer = player;
-        assignedPlayer.OnDies += (Vector3) => Timer.Create(StartFadeOut, 3, "FadeOut Timer");//FadeOutTimer; 
+        assignedPlayer.OnDies += (GameObject, Vector3) => Timer.Create(StartFadeOut, 3, "FadeOut Timer");
     }
 
-    //private void FadeOutTimer(Vector3 playerPosition) => Timer.Create(StartFadeOut, 3, "FadeOut Timer");
     
     private void StartFadeOut() => CrossFade(false);
     

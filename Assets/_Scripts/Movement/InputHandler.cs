@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,62 +9,26 @@ public class InputHandler : MonoBehaviour
     [SerializeField] private InputActionReference normalAttack;
     [SerializeField] private InputActionReference specialAttack;
 
-    public float MoveAxisX
-    {
-        get
-        {
-            return run.action.ReadValue<float>();
-        }
-        private set
-        {
-            run.action.ReadValue<float>();
-        }
-    }
+    public float MoveAxisX => run.action.ReadValue<float>();
 
-    public float MoveAxisZ
-    {
-        get
-        {
-            return sideStep.action.ReadValue<float>();
-        }
-        private set
-        {
-            sideStep.action.ReadValue<float>();
-        }
-    }
+    public float MoveAxisZ => sideStep.action.ReadValue<float>();
 
-    public bool IsJumping { get; set; }
-    public bool NormalAttack
-    {
-        get
-        {
-            return normalAttack.action.triggered;
-        }
-        private set { }
+    public bool IsJumping { get; private set; }
 
-    }
+    public bool NormalAttack => normalAttack.action.triggered;
 
-    public bool SpecialAttack
-    {
-        get
-        {
-            return specialAttack.action.triggered;
-        }
-        private set { }
-    }
-
-
+    public bool SpecialAttack => specialAttack.action.triggered;
 
     private void OnEnable()
     {
-        InputActionSwitch(true);
+        PlayerInputSwitch(true);
     }
     private void OnDisable()
     {
-        InputActionSwitch(false);
+        PlayerInputSwitch(false);
     }
 
-    public void InputActionSwitch(bool enabling)
+    public void PlayerInputSwitch(bool enabling)
     {
         if (enabling)
         {
@@ -108,36 +70,3 @@ public class InputHandler : MonoBehaviour
     public void JumpStop() => IsJumping = false;
 
 }
-/*
-    private float timer;
-    private float delayTime = 1.2f;
-    private bool isCounting = false;
-    private void Update()
-    {
-        if (isCounting == true)
-        {
-
-            timer -= Time.deltaTime;
-            if(timer <= 0)
-            {
-                isCounting = false;
-                Debug.Log("Ready for combo!");
-            }
-        }
-            
-
-        if(normalAttack.action.triggered)
-        {
-            if(!isCounting)
-            {
-                Debug.Log("Attack!");
-                timer = delayTime;
-                isCounting = true;
-            }
-            else if (isCounting)
-            {
-                Debug.Log("Attack on delay!");
-            }
-        }
-    }
-*/

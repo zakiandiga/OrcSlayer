@@ -16,7 +16,6 @@ public class PlayerTakeDamage : ActionState
         base.Enter();
 
         player.Anim.Play(playerAnimation.takeDamage);
-        //Debug.Log("Player take damage from " + stateMachine.LastState);
         actionFinished = false;
 
         staggerTime = playerData.staggerTime;

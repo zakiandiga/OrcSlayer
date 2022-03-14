@@ -20,16 +20,19 @@ public class EventBasedParticle : MonoBehaviour
 
     private void OnDisable()
     {
-        damageHandler.OnTakeDamage -= HitParticle;
-        damageHandler.OnClearingCorpse -= PoofOut;
+        if(damageHandler != null)
+        {
+            damageHandler.OnTakeDamage -= HitParticle;
+            damageHandler.OnClearingCorpse -= PoofOut;
+        }
     }
 
     public void HitParticle(int damage, Vector3 contactPoint, WeaponType weaponType)
-        => ObjectPooler.poolerInstance.SpawnFromPool("ImpactVFX", contactPoint, Quaternion.identity, particleParent);
+        => ObjectPooler.poolerInstance.SpawnFromPool("ImpactVFX", contactPoint, Quaternion.identity);
 
 
-    public void PoofOut(Vector3 position)
-        => ObjectPooler.poolerInstance.SpawnFromPool("PoofOut", position, Quaternion.identity, particleParent);
+    public void PoofOut(GameObject agent, Vector3 position)
+        => ObjectPooler.poolerInstance.SpawnFromPool("PoofOut", position, Quaternion.identity);
         
     
 }

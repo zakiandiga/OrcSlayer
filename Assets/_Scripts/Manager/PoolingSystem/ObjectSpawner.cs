@@ -56,7 +56,7 @@ public class ObjectSpawner : MonoBehaviour
             randomY = transform.position.y - hit.distance;
 
             spawnVector = new Vector3(randomX, randomY, randomZ);
-            ObjectPooler.poolerInstance.SpawnFromPool(objectName, spawnVector, Quaternion.identity, this.transform);
+            ObjectPooler.poolerInstance.SpawnFromPool(objectName, spawnVector, Quaternion.identity);
             StartCoroutine(SpawnTimer());
 
             //Debug.Log("Iron Ore SPAWNED");

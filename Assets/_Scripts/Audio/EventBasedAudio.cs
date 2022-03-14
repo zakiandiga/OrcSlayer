@@ -1,8 +1,6 @@
 using UnityEngine;
 using FMOD.Studio;
 using FMODUnity;
-using FMOD;
-using System;
 
 public class EventBasedAudio : MonoBehaviour
 {
@@ -25,8 +23,11 @@ public class EventBasedAudio : MonoBehaviour
 
     private void OnDisable()
     {
-        damageHandler.OnTakeDamage -= PlayImpact;
-        damageHandler.OnDies -= PlayDies;
+        if(damageHandler != null)
+        {
+            damageHandler.OnTakeDamage -= PlayImpact;
+            damageHandler.OnDies -= PlayDies;
+        }
     }
 
     private void PlayImpact(int damage, Vector3 impactPoint, WeaponType weaponType)
@@ -38,7 +39,7 @@ public class EventBasedAudio : MonoBehaviour
         impactInstance.release();
     }
 
-    private void PlayDies(Vector3 position)
+    private void PlayDies(GameObject agent, Vector3 position)
     {
         impactInstance = RuntimeManager.CreateInstance(dieSound.eventPath);
         impactInstance.set3DAttributes(RuntimeUtils.To3DAttributes(position));

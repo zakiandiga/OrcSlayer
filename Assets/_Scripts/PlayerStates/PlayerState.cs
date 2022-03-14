@@ -188,7 +188,7 @@ public class PlayerState: AbstractState
         stateMachine.ChangeState(player.takeDamageState);
     }
 
-    protected void PlayerDies(Vector3 position)
+    protected void PlayerDies(GameObject currentPlayer, Vector3 position)
     {
         stateMachine.ChangeState(player.dieState);
     }

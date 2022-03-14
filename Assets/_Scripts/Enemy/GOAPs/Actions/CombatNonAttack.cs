@@ -5,7 +5,7 @@ using SGoap;
 
 public class CombatNonAttack : EnemyAction
 {
-    private AdjustmentType adjustmentType; // = (AdjustmentType).index;
+    private AdjustmentType adjustmentType;
     private int adjustmentTypeIndex;
 
     private float targetDestinationX;
@@ -55,22 +55,22 @@ public class CombatNonAttack : EnemyAction
 
     public override bool PrePerform()
     {
-        tempPlayer = enemy.Player ?? enemy.transform;
+        tempPlayer = enemy.currentPlayer ?? enemy.transform;
 
         adjustmentTypeIndex = Random.Range(0,2);
         adjustmentType = (AdjustmentType)adjustmentTypeIndex;
         adjustmentOngoing = true;
 
-        if(adjustmentType == AdjustmentType.stay) //stay
+        if(adjustmentType == AdjustmentType.stay)
         {
-            //Debug.Log("Taunting");
+            //taunting
             enemy.SetLookAt(transform.position);
             enemy.AnimManager.SetTaunt();
             Timer.Create(TauntingSwitch, waitDuration, tauntingTimer);
         }
         else if(adjustmentType == AdjustmentType.move)
         {
-            //Debug.Log("Move a bit");
+            //move a bit
             
             targetDestinationX = tempPlayer.position.x;
                 
@@ -81,7 +81,6 @@ public class CombatNonAttack : EnemyAction
             enemy.SetDestination(targetDestination, actionData.moveSpeed);
 
             enemy.AnimManager.SetRunningBool(true);
-            //enemy.AnimManager.SetRunningFloat(0.5f);
         }
         return base.PrePerform();
     }

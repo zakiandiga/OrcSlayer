@@ -8,11 +8,8 @@ public class MusicManager : MonoBehaviour
 {
     private EventInstance BGM1;
     [SerializeField] private EventReference music01;
-
-    // Start is called before the first frame update
     void Start()
-    {
-        
+    {        
         BGM1 = RuntimeManager.CreateInstance(music01);
         BGM1.start();
         BGM1.release();

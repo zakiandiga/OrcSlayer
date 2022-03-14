@@ -67,9 +67,6 @@ public class PlayerAirNormalAttack : ActionState
 
     private void AttackGravity()
     {
-        //verticalVelocity = verticalVelocity + playerData.gravityValue + playerData.airAttackGravityMod * Time.deltaTime;
-        //player.SetVelocityY(verticalVelocity);
-
         verticalVelocity += (playerData.gravityValue + playerData.airAttackGravityMod) * Time.deltaTime;
         player.SetVelocityY(verticalVelocity);
     }

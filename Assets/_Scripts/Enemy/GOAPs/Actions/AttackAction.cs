@@ -25,7 +25,7 @@ public class AttackAction : EnemyAction
 
     public override EActionStatus Perform()
     {
-        // return failed if "IsStaggered" when it's implemented
+        // return failed if GOAP states contains "IsStaggered" when it's implemented
 
         if (actionOngoing)           
             return EActionStatus.Running;
@@ -48,8 +48,7 @@ public class AttackAction : EnemyAction
     {
         actionOngoing = true;
         cooldownTime = Random.Range(actionData.cooldownMinTimeModifier, actionData.cooldownMaxTimeModifier);
-        //Debug.Log("DOING ATTACK: " + Name);
-        
+         
         StartAttack(currentHitPerformed);
         
         return base.PrePerform();

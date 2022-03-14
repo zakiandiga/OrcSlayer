@@ -9,6 +9,7 @@ public class ObjectPooler : MonoBehaviour
     {
         public string tag;
         public GameObject prefab;
+        public Transform parent;
         public int size;
         public bool isExpandable;
     }
@@ -34,7 +35,9 @@ public class ObjectPooler : MonoBehaviour
 
             for (int i = 0; i < pool.size; i++)
             {
-                GameObject obj = Instantiate(pool.prefab, this.transform);
+                if (pool.parent == null)
+                    pool.parent = this.transform.parent;
+                GameObject obj = Instantiate(pool.prefab, pool.parent); 
                 obj.SetActive(false);
                 objectPool.Enqueue(obj);
             }
@@ -43,7 +46,7 @@ public class ObjectPooler : MonoBehaviour
         }
     }
 
-    public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation, Transform parent)
+    public GameObject SpawnFromPool(string tag, Vector3 position, Quaternion rotation)
     {
         if (!poolDictionary.ContainsKey(tag))
         {
@@ -51,11 +54,10 @@ public class ObjectPooler : MonoBehaviour
             return null;
         }
 
-        GameObject objectToSpawn = poolDictionary[tag].Dequeue(); //pull from the pool
+        GameObject objectToSpawn = poolDictionary[tag].Dequeue(); //take from the pool
         objectToSpawn.SetActive(true);
         objectToSpawn.transform.position = position;
         objectToSpawn.transform.rotation = rotation;
-        objectToSpawn.transform.parent = parent;
 
         poolDictionary[tag].Enqueue(objectToSpawn);
         return objectToSpawn;
@@ -63,7 +65,7 @@ public class ObjectPooler : MonoBehaviour
 
     public void ReturnToPool(GameObject obj)
     {
-        obj.SetActive(false);
-        obj.transform.SetParent(this.transform);
+        if(obj.activeSelf)
+            obj.SetActive(false);
     }
 }

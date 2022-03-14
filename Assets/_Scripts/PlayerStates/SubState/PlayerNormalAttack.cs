@@ -48,10 +48,8 @@ public class PlayerNormalAttack : ActionState
     {
         base.LogicUpdate();
 
-        if (!attackDelayTimerRunning && normalAttackInput && comboCount < playerData.maxComboCount) // && !isDelay)
+        if (!attackDelayTimerRunning && normalAttackInput && comboCount < playerData.maxComboCount)
         {
-            //Debug.Log("Attack number: " + comboCount);
-
             if(Timer.TimerRunning(comboRefreshTimer))
                 Timer.ForceStopTimer(comboRefreshTimer);
             

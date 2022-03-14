@@ -18,10 +18,10 @@ public class EnemyAction : BasicAction
 
     public bool IsAvailable()
     {
-        if(IsUsable() && enemy.Player != null)
+        if(IsUsable() && enemy.currentPlayer != null)
         {
-            if(Mathf.Abs(enemy.transform.position.x - enemy.Player.position.x) >= actionData.minimumDistance && 
-                Mathf.Abs(enemy.transform.position.x - enemy.Player.position.x) <= actionData.maximumDistance)
+            if(Mathf.Abs(enemy.transform.position.x - enemy.currentPlayer.position.x) >= actionData.minimumDistance && 
+                Mathf.Abs(enemy.transform.position.x - enemy.currentPlayer.position.x) <= actionData.maximumDistance)
             {
                 if(AgentData.Agent.States.GetValue("CurrentStamina") > actionData.staminaCost)
                     return true;

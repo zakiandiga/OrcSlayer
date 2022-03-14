@@ -27,7 +27,6 @@ public class WeaponAnimationEvents : MonoBehaviour
     public void SetColliderOn()
     {
         weaponCollider.DamageCollider.enabled = true;
-        //OnAttackExecuting?.Invoke(true);
     }
 
     public void SetColliderOff()
@@ -48,13 +47,6 @@ public class WeaponAnimationEvents : MonoBehaviour
         if(weaponTrail != null)
         {
             weaponTrail.Play();
-
-            /*
-            if (Timer.TimerRunning(trailTimer))
-                Timer.ForceStopTimer(trailTimer);
-            
-            Timer.Create(StopTrail, trailMaxLifetime, trailTimer);
-            */
         }
     }
 
@@ -63,7 +55,6 @@ public class WeaponAnimationEvents : MonoBehaviour
 
     private void PlayerLanding(Player player)
     {
-        Debug.Log("Player Lands during air attack!!!!!!");
         ForceCancelEvent();
     }
 

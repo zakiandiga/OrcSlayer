@@ -9,7 +9,6 @@ public class PlayerDashNormalAttack : ActionState
 
     }
 
-
     public override void Enter()
     {
         base.Enter();
